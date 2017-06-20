@@ -3,8 +3,10 @@ package custom.indicator.sample;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
-import com.viewpagerindicator.TitlePageIndicator;
-import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
+import com.lcp.datepickertest.R;
+
+import custom.indicator.TitlePageIndicator;
+
 
 public class SampleTitlesStyledMethods extends BaseSampleActivity {
     @Override
@@ -26,7 +28,7 @@ public class SampleTitlesStyledMethods extends BaseSampleActivity {
         indicator.setFooterColor(0xFFAA2222);
         indicator.setFooterLineHeight(1 * density); //1dp
         indicator.setFooterIndicatorHeight(3 * density); //3dp
-        indicator.setFooterIndicatorStyle(IndicatorStyle.Underline);
+        indicator.setFooterIndicatorStyle(TitlePageIndicator.IndicatorStyle.Underline);
         indicator.setTextColor(0xAA000000);
         indicator.setSelectedColor(0xFF000000);
         indicator.setSelectedBold(true);

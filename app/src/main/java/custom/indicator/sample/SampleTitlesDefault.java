@@ -3,7 +3,10 @@ package custom.indicator.sample;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
-import com.viewpagerindicator.TitlePageIndicator;
+import com.lcp.datepickertest.R;
+
+import custom.indicator.TitlePageIndicator;
+
 
 public class SampleTitlesDefault extends BaseSampleActivity {
     @Override

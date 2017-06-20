@@ -5,6 +5,8 @@ import android.support.v4.view.ViewPager;
 
 import com.lcp.datepickertest.R;
 
+import custom.indicator.UnderlinePageIndicator;
+
 
 public class SampleUnderlinesDefault extends BaseSampleActivity {
     @Override

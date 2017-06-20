@@ -2,7 +2,10 @@ package custom.indicator.sample;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import com.viewpagerindicator.CirclePageIndicator;
+
+import com.lcp.datepickertest.R;
+
+import custom.indicator.CirclePageIndicator;
 
 public class SampleCirclesInitialPage extends BaseSampleActivity {
     @Override

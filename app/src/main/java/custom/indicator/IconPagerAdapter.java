@@ -1,4 +1,4 @@
-package custom.indicator.sample;
+package custom.indicator;
 
 public interface IconPagerAdapter {
     /**

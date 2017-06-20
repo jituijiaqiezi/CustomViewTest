@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
-import com.viewpagerindicator.TitlePageIndicator;
-import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
-import com.viewpagerindicator.TitlePageIndicator.OnCenterItemClickListener;
+import com.lcp.datepickertest.R;
 
-public class SampleTitlesCenterClickListener extends BaseSampleActivity implements OnCenterItemClickListener {
+import custom.indicator.TitlePageIndicator;
+
+
+public class SampleTitlesCenterClickListener extends BaseSampleActivity implements TitlePageIndicator.OnCenterItemClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +22,7 @@ public class SampleTitlesCenterClickListener extends BaseSampleActivity implemen
 
         TitlePageIndicator indicator = (TitlePageIndicator)findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
-        indicator.setFooterIndicatorStyle(IndicatorStyle.Underline);
+        indicator.setFooterIndicatorStyle(TitlePageIndicator.IndicatorStyle.Underline);
         indicator.setOnCenterItemClickListener(this);
         mIndicator = indicator;
     }

@@ -5,6 +5,8 @@ import android.support.v4.view.ViewPager;
 
 import com.lcp.datepickertest.R;
 
+import custom.indicator.TitlePageIndicator;
+
 
 public class SampleTitlesBottom extends BaseSampleActivity {
     @Override

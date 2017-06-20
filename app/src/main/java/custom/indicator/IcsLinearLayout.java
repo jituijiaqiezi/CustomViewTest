@@ -1,4 +1,4 @@
-package custom.indicator.sample;
+package custom.indicator;
 
 import android.content.Context;
 import android.content.res.TypedArray;

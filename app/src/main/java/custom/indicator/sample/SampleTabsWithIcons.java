@@ -6,8 +6,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import com.viewpagerindicator.IconPagerAdapter;
-import com.viewpagerindicator.TabPageIndicator;
+
+import com.lcp.datepickertest.R;
+
+import custom.indicator.IconPagerAdapter;
+import custom.indicator.TabPageIndicator;
+
 
 public class SampleTabsWithIcons extends FragmentActivity {
     private static final String[] CONTENT = new String[] { "Calendar", "Camera", "Alarms", "Location" };

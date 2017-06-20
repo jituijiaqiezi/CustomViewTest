@@ -3,8 +3,10 @@ package custom.indicator.sample;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
-import com.viewpagerindicator.TitlePageIndicator;
-import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
+import com.lcp.datepickertest.R;
+
+import custom.indicator.TitlePageIndicator;
+
 
 public class SampleTitlesTriangle extends BaseSampleActivity {
     @Override
@@ -19,7 +21,7 @@ public class SampleTitlesTriangle extends BaseSampleActivity {
 
         TitlePageIndicator indicator = (TitlePageIndicator)findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
-        indicator.setFooterIndicatorStyle(IndicatorStyle.Triangle);
+        indicator.setFooterIndicatorStyle(TitlePageIndicator.IndicatorStyle.Triangle);
         mIndicator = indicator;
     }
 }
