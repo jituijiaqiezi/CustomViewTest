@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">DatePickerTest</string>
+    <string name="date_picker_prev_month_button" msgid="2858244643992056505">"上个月"</string>
+    <string name="date_picker_next_month_button" msgid="5559507736887605055">"下个月"</string>
+
+    <string name="date_picker_month_typeface">sans-serif-medium</string>
+    <!-- DO NOT TRANSLATE -->
+    <string name="date_picker_day_of_week_typeface">sans-serif-medium</string>
+    <!-- DO NOT TRANSLATE -->
+    <string name="date_picker_day_typeface">sans-serif-medium</string>
+
+    <string name="font_family_display_4_material">sans-serif-condensed-light</string>
+    <string name="font_family_display_3_material">sans-serif-condensed-light</string>
+    <string name="font_family_display_2_material">sans-serif-condensed-light</string>
+    <string name="font_family_display_1_material">sans-serif-condensed-light</string>
+    <string name="font_family_headline_material">sans-serif-condensed-light</string>
+    <string name="font_family_title_material">sans-serif-condensed</string>
+    <string name="font_family_subhead_material">sans-serif-condensed-light</string>
+    <string name="font_family_menu_material">sans-serif-condensed-light</string>
+    <string name="font_family_body_2_material">sans-serif-condensed</string>
+    <string name="font_family_body_1_material">sans-serif-condensed-light</string>
+    <string name="font_family_caption_material">sans-serif-condensed-light</string>
+    <string name="font_family_button_material">sans-serif-condensed</string>
+
+</resources>
