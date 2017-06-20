@@ -3,7 +3,7 @@ package custom.spinnerloading;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.lcp.datepickertest.R;
+import com.lcp.customviewtest.R;
 
 public class SpinnerLoadingActivity extends AppCompatActivity {
 

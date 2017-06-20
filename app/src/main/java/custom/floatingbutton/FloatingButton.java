@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.lcp.datepickertest.R;
+import com.lcp.customviewtest.R;
 
 import util.DimentionUtil;
 

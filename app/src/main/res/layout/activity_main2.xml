@@ -21,7 +21,7 @@
             android:id="@+id/calendarOri"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <com.lcp.datepickertest.MyCalendarView
+        <com.lcp.customviewtest.MyCalendarView
             android:id="@+id/calendar"
             app:calendarViewMode="material"
             android:layout_width="match_parent"

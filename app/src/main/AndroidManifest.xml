@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lcp.datepickertest">
+    package="com.lcp.customviewtest">
 
     <application
         android:allowBackup="true"
@@ -9,14 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Main3Activity" />
+        <activity android:name="com.lcp.customviewtest.MainActivity" />
+        <activity android:name="com.lcp.customviewtest.Main3Activity" />
         <activity android:name="custom.downloading.LaunchActivity" />
         <activity android:name="custom.downloading.MainActivity" />
         <activity android:name="custom.downloading.DownLoadingActivity"></activity>
 
         <service
-            android:name=".MyAccessibilityService"
+            android:name="com.lcp.customviewtest.MyAccessibilityService"
             android:enabled="true"
             android:exported="true" />
 
@@ -24,6 +24,8 @@
 
         </activity>
         <activity android:name="custom.floatingbutton.FloatButtonActivity">
+        </activity>
+        <activity android:name="custom.indicator.sample.SampleUnderlinesDefault">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.lcp.datepickertest.R;
+import com.lcp.customviewtest.R;
 
 /**
  * Created by linchenpeng on 2017/6/14.

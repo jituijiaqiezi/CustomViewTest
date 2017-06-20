@@ -36,7 +36,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
-import com.lcp.datepickertest.R;
+import com.lcp.customviewtest.R;
 
 import java.util.ArrayList;
 

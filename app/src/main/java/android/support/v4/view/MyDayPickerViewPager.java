@@ -8,8 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.android.internal.util.Predicate;
-import com.lcp.datepickertest.MyDayPickerPagerAdapter;
-import com.lcp.datepickertest.MySimpleMonthView;
+import com.lcp.customviewtest.MyDayPickerPagerAdapter;
+import com.lcp.customviewtest.MySimpleMonthView;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

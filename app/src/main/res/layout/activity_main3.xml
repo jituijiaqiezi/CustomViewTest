@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lcp.datepickertest.Main3Activity">
+    tools:context="com.lcp.customviewtest.Main3Activity">
 
 </android.support.constraint.ConstraintLayout>

@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.lcp.datepickertest.R;
+import com.lcp.customviewtest.R;
 
 public class LaunchActivity extends AppCompatActivity {
     @Override

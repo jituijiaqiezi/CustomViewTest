@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.lcp.datepickertest.R;
+import com.lcp.customviewtest.R;
 
 import java.util.Random;
 

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
-import com.lcp.datepickertest.R;
+import com.lcp.customviewtest.R;
 
 import custom.indicator.TitlePageIndicator;
 

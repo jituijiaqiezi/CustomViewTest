@@ -3,7 +3,7 @@ package custom.floatingbutton;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.lcp.datepickertest.R;
+import com.lcp.customviewtest.R;
 
 public class FloatButtonActivity extends AppCompatActivity {
 

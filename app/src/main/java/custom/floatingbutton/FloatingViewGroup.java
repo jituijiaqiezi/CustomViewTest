@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.lcp.datepickertest.R;
+import com.lcp.customviewtest.R;
 
 import util.DimentionUtil;
 

@@ -26,9 +26,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         />
-    <com.viewpagerindicator.UnderlinePageIndicator
+    <custom.indicator.UnderlinePageIndicator
         android:id="@+id/indicator"
-        android:layout_height="2dp"
+        android:layout_height="20dp"
         android:layout_width="fill_parent"
         />
 </LinearLayout>

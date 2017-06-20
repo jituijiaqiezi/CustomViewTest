@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.lcp.datepickertest.R;
+import com.lcp.customviewtest.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

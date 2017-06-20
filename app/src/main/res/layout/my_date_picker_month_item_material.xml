@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 
-<com.lcp.datepickertest.MySimpleMonthView
+<com.lcp.customviewtest.MySimpleMonthView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/month_view"
     android:layout_width="match_parent"

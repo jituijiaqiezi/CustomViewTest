@@ -1,4 +1,4 @@
-package com.lcp.datepickertest;
+package com.lcp.customviewtest;
 
 import android.accessibilityservice.AccessibilityService;
 import android.util.Log;

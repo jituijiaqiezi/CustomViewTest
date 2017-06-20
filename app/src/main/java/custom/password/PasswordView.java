@@ -19,7 +19,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
-import com.lcp.datepickertest.R;
+import com.lcp.customviewtest.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

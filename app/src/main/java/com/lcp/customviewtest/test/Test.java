@@ -1,4 +1,4 @@
-package com.lcp.datepickertest.test;
+package com.lcp.customviewtest.test;
 
 /**
  * Created by linchenpeng on 2017/6/12.

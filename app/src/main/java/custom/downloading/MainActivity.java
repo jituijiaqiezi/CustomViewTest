@@ -7,11 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.lcp.datepickertest.R;
+import com.lcp.customviewtest.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import static com.lcp.datepickertest.R.id.stop;
+import static com.lcp.customviewtest.R.id.stop;
 
 
 public class MainActivity extends AppCompatActivity implements Down360LoadingView.OnProgressStateChangeListener {

@@ -1,9 +1,8 @@
-package com.lcp.datepickertest;
+package com.lcp.customviewtest;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v4.widget.ExploreByTouchHelper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewParent;
