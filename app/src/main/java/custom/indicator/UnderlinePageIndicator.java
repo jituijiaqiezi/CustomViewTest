@@ -220,12 +220,14 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
             case MotionEvent.ACTION_CANCEL:
                 Log.i(TAG,"action:cancel");
             case MotionEvent.ACTION_UP:
-                Log.i(TAG,"action:"+action);
+                Log.i(TAG,"actionUP:"+mIsDragging);
                 if (!mIsDragging) {
+                    //点击事件
                     final int count = mViewPager.getAdapter().getCount();
                     final int width = getWidth();
                     final float halfWidth = width / 2f;
                     final float sixthWidth = width / 6f;
+
 
                     if ((mCurrentPage > 0) && (ev.getX() < halfWidth - sixthWidth)) {
                         if (action != MotionEvent.ACTION_CANCEL) {

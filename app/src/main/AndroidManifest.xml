@@ -9,22 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.lcp.customviewtest.MainActivity" />
-        <activity android:name="com.lcp.customviewtest.Main3Activity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Main3Activity" />
         <activity android:name="custom.downloading.LaunchActivity" />
         <activity android:name="custom.downloading.MainActivity" />
-        <activity android:name="custom.downloading.DownLoadingActivity"></activity>
+        <activity android:name="custom.downloading.DownLoadingActivity" />
 
         <service
-            android:name="com.lcp.customviewtest.MyAccessibilityService"
+            android:name=".MyAccessibilityService"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name="custom.spinnerloading.SpinnerLoadingActivity">
-
-        </activity>
-        <activity android:name="custom.floatingbutton.FloatButtonActivity">
-        </activity>
+        <activity android:name="custom.spinnerloading.SpinnerLoadingActivity" />
+        <activity android:name="custom.floatingbutton.FloatButtonActivity" />
         <activity android:name="custom.indicator.sample.SampleUnderlinesDefault">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +29,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="custom.indicator.sample.SampleUnderlinesNoFade" />
+        <activity android:name="custom.indicator.sample.SampleUnderlinesStyledLayout" />
+        <activity android:name="custom.indicator.sample.SampleUnderlinesStyledMethods" />
+        <activity android:name="custom.indicator.sample.SampleUnderlinesStyledTheme" />
+        <activity android:name="custom.indicator.IndicatorChooseActivity" />
+        <activity android:name="custom.indicator.IndicatorListActivity"></activity>
     </application>
 
 </manifest>

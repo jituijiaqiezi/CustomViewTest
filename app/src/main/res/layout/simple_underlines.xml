@@ -28,7 +28,7 @@
         />
     <custom.indicator.UnderlinePageIndicator
         android:id="@+id/indicator"
-        android:layout_height="20dp"
+        android:layout_height="100dp"
         android:layout_width="fill_parent"
         />
 </LinearLayout>
