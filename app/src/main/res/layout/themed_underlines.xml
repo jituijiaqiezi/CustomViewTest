@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 Jake Wharton
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2012 Jake Wharton
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,27 +13,25 @@
      limitations under the License.
 -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        />
-    <com.viewpagerindicator.UnderlinePageIndicator
+        android:layout_weight="1" />
+
+    <custom.indicator.UnderlinePageIndicator
         android:id="@+id/indicator"
-        android:layout_height="2dp"
         android:layout_width="fill_parent"
+        android:layout_height="2dp"
         android:background="#FFCCCCCC"
-        app:selectedColor="#FFCC0000"
         app:fadeDelay="1000"
         app:fadeLength="1000"
-        />
+        app:selectedColor="#FFCC0000" />
 
 </LinearLayout>

@@ -23,17 +23,19 @@
         <activity android:name="custom.spinnerloading.SpinnerLoadingActivity" />
         <activity android:name="custom.floatingbutton.FloatButtonActivity" />
         <activity android:name="custom.indicator.sample.SampleUnderlinesDefault">
+
+        </activity>
+        <activity android:name="custom.indicator.sample.SampleUnderlinesNoFade" />
+        <activity android:name="custom.indicator.sample.SampleUnderlinesStyledLayout" />
+        <activity android:name="custom.indicator.sample.SampleUnderlinesStyledMethods" />
+        <activity android:name="custom.indicator.sample.SampleLinesStyledTheme" />
+        <activity android:name="custom.indicator.IndicatorChooseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="custom.indicator.sample.SampleUnderlinesNoFade" />
-        <activity android:name="custom.indicator.sample.SampleUnderlinesStyledLayout" />
-        <activity android:name="custom.indicator.sample.SampleUnderlinesStyledMethods" />
-        <activity android:name="custom.indicator.sample.SampleUnderlinesStyledTheme" />
-        <activity android:name="custom.indicator.IndicatorChooseActivity" />
         <activity android:name="custom.indicator.IndicatorListActivity"></activity>
     </application>
 
