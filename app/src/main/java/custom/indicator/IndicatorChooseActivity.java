@@ -15,7 +15,20 @@ public class IndicatorChooseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indicator);
     }
-    public void click(View view){
-        startActivity(new Intent(this,IndicatorListActivity.class));
+
+    public void click(View view) {
+        int index;
+        switch (view.getId()) {
+            case R.id.btn_underline:
+                index = 0;
+                break;
+            case R.id.btn_circle:
+                index = 1;
+                break;
+            default:
+                index=0;
+                break;
+        }
+        startActivity(new Intent(this, IndicatorListActivity.class).putExtra("index", index));
     }
 }

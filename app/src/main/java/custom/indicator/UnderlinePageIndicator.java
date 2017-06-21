@@ -95,8 +95,8 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         //Retrieve styles attributes
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.UnderlinePageIndicator, defStyle, 0);
 
-        //setFades(a.getBoolean(R.styleable.UnderlinePageIndicator_fades, defaultFades));
-        setFades(false);
+        setFades(a.getBoolean(R.styleable.UnderlinePageIndicator_fades, defaultFades));
+
         setSelectedColor(a.getColor(R.styleable.UnderlinePageIndicator_selectedColor, defaultSelectedColor));
         setFadeDelay(a.getInteger(R.styleable.UnderlinePageIndicator_fadeDelay, defaultFadeDelay));
         setFadeLength(a.getInteger(R.styleable.UnderlinePageIndicator_fadeLength, defaultFadeLength));
