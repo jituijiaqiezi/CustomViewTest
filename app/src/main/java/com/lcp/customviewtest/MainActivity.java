@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         int second=dateTime.getSecondOfMinute();
         Log.i(TAG,"Date现在是:"+year+" 年 "+month+" 月 "+dayOfMonth+" 日 "+hour+" 时 "+minute+" 分 "+second+" 秒 ");
         TimePickerDialog dialog=new TimePickerDialog(this,this,hour,minute,true);
-        dialog.show();*/
+        dialog.showAnimation();*/
     }
     public void selectNumber(View view){
         int year=dateTime.getYear();

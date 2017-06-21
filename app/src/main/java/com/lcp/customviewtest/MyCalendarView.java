@@ -371,9 +371,9 @@ public class MyCalendarView extends FrameLayout {
     }
 
     /**
-     * Sets whether to show the week number.
+     * Sets whether to showAnimation the week number.
      *
-     * @param showWeekNumber True to show the week number.
+     * @param showWeekNumber True to showAnimation the week number.
      * @attr ref android.R.styleable#CalendarView_showWeekNumber
      * @deprecated No longer used by Material-style CalendarView.
      */
@@ -383,7 +383,7 @@ public class MyCalendarView extends FrameLayout {
     }
 
     /**
-     * Gets whether to show the week number.
+     * Gets whether to showAnimation the week number.
      *
      * @return True if showing the week number.
      * @attr ref android.R.styleable#CalendarView_showWeekNumber

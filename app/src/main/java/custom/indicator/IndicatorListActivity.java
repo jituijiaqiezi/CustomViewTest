@@ -20,6 +20,10 @@ import custom.indicator.sample.SampleCirclesSnap;
 import custom.indicator.sample.SampleCirclesStyledLayout;
 import custom.indicator.sample.SampleCirclesStyledMethods;
 import custom.indicator.sample.SampleCirclesStyledTheme;
+import custom.indicator.sample.SampleLinesDefault;
+import custom.indicator.sample.SampleLinesStyledLayout;
+import custom.indicator.sample.SampleLinesStyledMethods;
+import custom.indicator.sample.SampleLinesStyledTheme;
 import custom.indicator.sample.SampleUnderlinesDefault;
 import custom.indicator.sample.SampleUnderlinesNoFade;
 import custom.indicator.sample.SampleUnderlinesStyledLayout;
@@ -46,9 +50,17 @@ public class IndicatorListActivity extends AppCompatActivity {
         put(SampleCirclesStyledTheme.class.getSimpleName(), SampleCirclesStyledTheme.class);
     }};
 
+    private Map<String, Class> lines = new HashMap<String, Class>() {{
+        put(SampleLinesDefault.class.getSimpleName(), SampleLinesDefault.class);
+        put(SampleLinesStyledLayout.class.getSimpleName(), SampleLinesStyledLayout.class);
+        put(SampleLinesStyledMethods.class.getSimpleName(), SampleLinesStyledMethods.class);
+        put(SampleLinesStyledTheme.class.getSimpleName(), SampleLinesStyledTheme.class);
+    }};
+
     private List<Map<String, Class>> list = new ArrayList<Map<String, Class>>() {{
         add(underlines);
         add(circles);
+        add(lines);
     }};
 
     @Override

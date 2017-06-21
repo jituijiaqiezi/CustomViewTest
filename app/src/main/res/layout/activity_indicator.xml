@@ -40,4 +40,21 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_underline"
         app:layout_constraintVertical_bias="0.16" />
+
+    <Button
+        android:onClick="click"
+        android:id="@+id/btn_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:textAllCaps="false"
+        android:text="LinePageIndicator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_circle"
+        app:layout_constraintVertical_bias="0.283" />
 </android.support.constraint.ConstraintLayout>

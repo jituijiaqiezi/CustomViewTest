@@ -32,7 +32,7 @@ import java.util.Locale;
 @RequiresApi(api = Build.VERSION_CODES.N)
 class MyCalendarViewLegacyDelegate extends MyCalendarView.AbstractCalendarViewDelegate {
     /**
-     * Default value whether to show week number.
+     * Default value whether to showAnimation week number.
      */
     private static final boolean DEFAULT_SHOW_WEEK_NUMBER = true;
 
@@ -131,7 +131,7 @@ class MyCalendarViewLegacyDelegate extends MyCalendarView.AbstractCalendarViewDe
     private int mShownWeekCount;
 
     /**
-     * Flag whether to show the week number.
+     * Flag whether to showAnimation the week number.
      */
     private boolean mShowWeekNumber;
 
@@ -972,7 +972,7 @@ class MyCalendarViewLegacyDelegate extends MyCalendarView.AbstractCalendarViewDe
      * <p>
      * This is a specialized adapter for creating a list of weeks with
      * selectable days. It can be configured to display the week number, start
-     * the week on a given day, show a reduced number of days, or display an
+     * the week on a given day, showAnimation a reduced number of days, or display an
      * arbitrary number of weeks at a time.
      * </p>
      */
@@ -1070,7 +1070,7 @@ class MyCalendarViewLegacyDelegate extends MyCalendarView.AbstractCalendarViewDe
         /**
          * Changes which month is in focus and updates the view.
          *
-         * @param month The month to show as in focus [0-11]
+         * @param month The month to showAnimation as in focus [0-11]
          */
         public void setFocusMonth(int month) {
             if (mFocusedMonth == month) {
@@ -1124,7 +1124,7 @@ class MyCalendarViewLegacyDelegate extends MyCalendarView.AbstractCalendarViewDe
     /**
      * <p>
      * This is a dynamic view for drawing a single week. It can be configured to
-     * display the week number, start the week on a given day, or show a reduced
+     * display the week number, start the week on a given day, or showAnimation a reduced
      * number of days. It is intended for use as a single view within a
      * ListView. See {@link WeeksAdapter} for usage.
      * </p>

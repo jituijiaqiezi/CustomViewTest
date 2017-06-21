@@ -15,6 +15,13 @@
         <activity android:name="custom.downloading.MainActivity" />
         <activity android:name="custom.downloading.DownLoadingActivity" />
 
+        <activity android:name=".CheckBoxTest">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
         <service
             android:name=".MyAccessibilityService"
             android:enabled="true"
@@ -29,22 +36,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="custom.indicator.IndicatorListActivity"/>
-
-        <activity android:name="custom.indicator.sample.SampleLinesStyledTheme" />
-
-        <activity android:name="custom.indicator.sample.SampleUnderlinesDefault"/>
+        <activity android:name="custom.indicator.IndicatorListActivity" />
+        <activity android:name="custom.indicator.sample.SampleUnderlinesDefault" />
         <activity android:name="custom.indicator.sample.SampleUnderlinesNoFade" />
         <activity android:name="custom.indicator.sample.SampleUnderlinesStyledLayout" />
         <activity android:name="custom.indicator.sample.SampleUnderlinesStyledMethods" />
         <activity android:name="custom.indicator.sample.SampleUnderlinesStyledTheme" />
+        <activity android:name="custom.indicator.sample.SampleCirclesDefault" />
+        <activity android:name="custom.indicator.sample.SampleCirclesInitialPage" />
+        <activity android:name="custom.indicator.sample.SampleCirclesSnap" />
+        <activity android:name="custom.indicator.sample.SampleCirclesStyledLayout" />
+        <activity android:name="custom.indicator.sample.SampleCirclesStyledMethods" />
+        <activity android:name="custom.indicator.sample.SampleCirclesStyledTheme" />
+        <activity android:name="custom.indicator.sample.SampleLinesDefault"/>
+        <activity android:name="custom.indicator.sample.SampleLinesStyledLayout"/>
+        <activity android:name="custom.indicator.sample.SampleLinesStyledTheme"/>
+        <activity android:name="custom.indicator.sample.SampleLinesStyledMethods"/>
 
-        <activity android:name="custom.indicator.sample.SampleCirclesDefault"/>
-        <activity android:name="custom.indicator.sample.SampleCirclesInitialPage"/>
-        <activity android:name="custom.indicator.sample.SampleCirclesSnap"/>
-        <activity android:name="custom.indicator.sample.SampleCirclesStyledLayout"/>
-        <activity android:name="custom.indicator.sample.SampleCirclesStyledMethods"/>
-        <activity android:name="custom.indicator.sample.SampleCirclesStyledTheme"/>
+        <activity android:name="custom.indicator.sample.SampleTabsDefault"/>
+        <activity android:name="custom.indicator.sample.SampleTabsStyled"/>
+        <activity android:name="custom.indicator.sample.SampleTabsWithIcons"/>
     </application>
 
 </manifest>

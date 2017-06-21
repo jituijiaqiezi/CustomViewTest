@@ -25,6 +25,9 @@ public class IndicatorChooseActivity extends AppCompatActivity {
             case R.id.btn_circle:
                 index = 1;
                 break;
+            case R.id.btn_line:
+                index=2;
+                break;
             default:
                 index=0;
                 break;
