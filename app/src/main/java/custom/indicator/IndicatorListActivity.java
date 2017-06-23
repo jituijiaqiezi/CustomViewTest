@@ -10,9 +10,8 @@ import android.widget.LinearLayout;
 import com.lcp.customviewtest.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import custom.indicator.sample.SampleCirclesDefault;
 import custom.indicator.sample.SampleCirclesInitialPage;
@@ -24,6 +23,18 @@ import custom.indicator.sample.SampleLinesDefault;
 import custom.indicator.sample.SampleLinesStyledLayout;
 import custom.indicator.sample.SampleLinesStyledMethods;
 import custom.indicator.sample.SampleLinesStyledTheme;
+import custom.indicator.sample.SampleTabsDefault;
+import custom.indicator.sample.SampleTabsStyled;
+import custom.indicator.sample.SampleTabsWithIcons;
+import custom.indicator.sample.SampleTitlesBottom;
+import custom.indicator.sample.SampleTitlesCenterClickListener;
+import custom.indicator.sample.SampleTitlesDefault;
+import custom.indicator.sample.SampleTitlesInitialPage;
+import custom.indicator.sample.SampleTitlesStyledLayout;
+import custom.indicator.sample.SampleTitlesStyledMethods;
+import custom.indicator.sample.SampleTitlesStyledTheme;
+import custom.indicator.sample.SampleTitlesTriangle;
+import custom.indicator.sample.SampleTitlesWithListener;
 import custom.indicator.sample.SampleUnderlinesDefault;
 import custom.indicator.sample.SampleUnderlinesNoFade;
 import custom.indicator.sample.SampleUnderlinesStyledLayout;
@@ -34,33 +45,53 @@ import custom.indicator.sample.SampleUnderlinesStyledTheme;
 public class IndicatorListActivity extends AppCompatActivity {
 
     LinearLayout llayout;
-    private Map<String, Class> underlines = new HashMap<String, Class>() {{
-        put(SampleUnderlinesDefault.class.getSimpleName(), SampleUnderlinesDefault.class);
-        put(SampleUnderlinesNoFade.class.getSimpleName(), SampleUnderlinesNoFade.class);
-        put(SampleUnderlinesStyledLayout.class.getSimpleName(), SampleUnderlinesStyledLayout.class);
-        put(SampleUnderlinesStyledMethods.class.getSimpleName(), SampleUnderlinesStyledMethods.class);
-        put(SampleUnderlinesStyledTheme.class.getSimpleName(), SampleUnderlinesStyledTheme.class);
+    private List<Class> underlines = new LinkedList<Class>() {{
+        add(SampleUnderlinesDefault.class);
+        add(SampleUnderlinesNoFade.class);
+        add(SampleUnderlinesStyledLayout.class);
+        add(SampleUnderlinesStyledMethods.class);
+        add(SampleUnderlinesStyledTheme.class);
     }};
-    private Map<String, Class> circles = new HashMap<String, Class>() {{
-        put(SampleCirclesDefault.class.getSimpleName(), SampleCirclesDefault.class);
-        put(SampleCirclesInitialPage.class.getSimpleName(), SampleCirclesInitialPage.class);
-        put(SampleCirclesSnap.class.getSimpleName(), SampleCirclesSnap.class);
-        put(SampleCirclesStyledLayout.class.getSimpleName(), SampleCirclesStyledLayout.class);
-        put(SampleCirclesStyledMethods.class.getSimpleName(), SampleCirclesStyledMethods.class);
-        put(SampleCirclesStyledTheme.class.getSimpleName(), SampleCirclesStyledTheme.class);
-    }};
-
-    private Map<String, Class> lines = new HashMap<String, Class>() {{
-        put(SampleLinesDefault.class.getSimpleName(), SampleLinesDefault.class);
-        put(SampleLinesStyledLayout.class.getSimpleName(), SampleLinesStyledLayout.class);
-        put(SampleLinesStyledMethods.class.getSimpleName(), SampleLinesStyledMethods.class);
-        put(SampleLinesStyledTheme.class.getSimpleName(), SampleLinesStyledTheme.class);
+    private List<Class> circles = new LinkedList<Class>() {{
+        add(SampleCirclesDefault.class);
+        add(SampleCirclesInitialPage.class);
+        add(SampleCirclesSnap.class);
+        add(SampleCirclesStyledLayout.class);
+        add(SampleCirclesStyledMethods.class);
+        add(SampleCirclesStyledTheme.class);
     }};
 
-    private List<Map<String, Class>> list = new ArrayList<Map<String, Class>>() {{
+    private List<Class> lines = new LinkedList<Class>() {{
+        add(SampleLinesDefault.class);
+        add(SampleLinesStyledLayout.class);
+        add(SampleLinesStyledMethods.class);
+        add(SampleLinesStyledTheme.class);
+    }};
+
+    private List<Class> tabs = new LinkedList<Class>() {{
+        add(SampleTabsDefault.class);
+        add(SampleTabsStyled.class);
+        add(SampleTabsWithIcons.class);
+    }};
+
+    private List<Class> titles=new LinkedList<Class>(){{
+        add(SampleTitlesDefault.class);
+        add(SampleTitlesStyledLayout.class);
+        add(SampleTitlesStyledMethods.class);
+        add(SampleTitlesStyledTheme.class);
+        add(SampleTitlesBottom.class);
+        add(SampleTitlesCenterClickListener.class);
+        add(SampleTitlesInitialPage.class);
+        add(SampleTitlesTriangle.class);
+        add(SampleTitlesWithListener.class);
+    }};
+
+    private List<List<Class>> list = new ArrayList<List<Class>>() {{
         add(underlines);
         add(circles);
         add(lines);
+        add(tabs);
+        add(titles);
     }};
 
     @Override
@@ -73,11 +104,9 @@ public class IndicatorListActivity extends AppCompatActivity {
     }
 
     private void init(int index) {
-        for (Map.Entry<String, Class> entry : list.get(index).entrySet()) {
-            String key = entry.getKey();
-            final Class value = entry.getValue();
+        for (final Class value : list.get(index)) {
             Button button = new Button(this);
-            button.setText(key);
+            button.setText(value.getSimpleName());
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
