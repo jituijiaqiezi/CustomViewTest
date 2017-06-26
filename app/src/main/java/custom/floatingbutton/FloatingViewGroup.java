@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 
 import com.lcp.customviewtest.R;
 
-import util.DimentionUtil;
+import util.DimensionUtil;
 
 /**
  * Created by linchenpeng on 2017/6/15.
@@ -42,7 +42,7 @@ public class FloatingViewGroup extends FrameLayout {
         View.inflate(context, R.layout.float_view_group, this);
         floatingView = (FloatingView) findViewById(R.id.float_view);
         floatingButton = (FloatingButton) findViewById(R.id.float_button);
-        translateY = DimentionUtil.dp2px(getContext(), 200);
+        translateY = DimensionUtil.dp2px(getContext(), 200);
 
         floatingButton.setOnClickListener(new OnClickListener() {
             @Override

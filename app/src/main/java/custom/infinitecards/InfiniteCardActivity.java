@@ -2,6 +2,7 @@ package custom.infinitecards;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,7 +93,13 @@ public class InfiniteCardActivity extends AppCompatActivity {
         mCardView.setTransformerToFront(new DefaultTransformerToFront());
         mCardView.setTransformerToBack(new AnimationTransformer() {
             @Override
+            public String getTag() {
+                return "ActivityTransformerStyle2";
+            }
+
+            @Override
             public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
+                Log.i(getTag(), "fromPosition:" + fromPosition + ",toPosition:" + toPosition);
                 int positionCount = fromPosition - toPosition;
                 float scale = (0.8f - 0.1f * fromPosition) + (0.1f * fraction * positionCount);
                 view.setScaleX(scale);
@@ -112,7 +119,13 @@ public class InfiniteCardActivity extends AppCompatActivity {
         });
         mCardView.setZIndexTransformerToBack(new ZIndexTransformer() {
             @Override
+            public String getTag() {
+                return "ActivityZIndexTransformerStyle2";
+            }
+
+            @Override
             public void transformAnimation(CardItem card, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
+                Log.i(getTag(), "fromPosition:" + fromPosition + ",toPosition:" + toPosition);
                 if (fraction < 0.4f)
                     card.zIndex = 1f + 0.01f * fromPosition;
                 else
@@ -133,7 +146,13 @@ public class InfiniteCardActivity extends AppCompatActivity {
         mCardView.setTransformerToFront(new DefaultCommonTransformer());
         mCardView.setTransformerToBack(new AnimationTransformer() {
             @Override
+            public String getTag() {
+                return "ActivityTransformerStyle3";
+            }
+
+            @Override
             public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
+                Log.i(getTag(), "fromPosition:" + fromPosition + ",toPosition:" + toPosition);
                 int positionCount = fromPosition - toPosition;
                 float scale = (0.8f - 0.1f * fromPosition) + (0.1f * fraction * positionCount);
                 view.setScaleX(scale);
@@ -148,18 +167,25 @@ public class InfiniteCardActivity extends AppCompatActivity {
 
             @Override
             public void transformInterpolatedAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
-                int positionCount=fromPosition-toPosition;
-                float scale=(0.8f-0.1f*fromPosition)+(0.1f*fraction*positionCount);
-                view.setTranslationY(-cardHeight*(0.8f-scale)*0.5f-cardWidth*(0.02f*fromPosition-0.02f*fraction*positionCount));
+                int positionCount = fromPosition - toPosition;
+                float scale = (0.8f - 0.1f * fromPosition) + (0.1f * fraction * positionCount);
+                view.setTranslationY(-cardHeight * (0.8f - scale) * 0.5f - cardWidth * (0.02f * fromPosition - 0.02f * fraction * positionCount));
             }
         });
         mCardView.setZIndexTransformerToBack(new ZIndexTransformer() {
             @Override
+            public String getTag() {
+                return "ActivityZIndexTransformerStyle3";
+            }
+
+            @Override
             public void transformAnimation(CardItem card, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
-                if(fraction<0.5f)
-                    card.zIndex=1f+0.01f*fromPosition;
-                else
-                    card.zIndex=1f+0.01f*toPosition;
+                Log.i(getTag(), "fromPosition:" + fromPosition + ",toPosition:" + toPosition);
+                if (fraction < 0.4f)
+                    if (fraction < 0.5f)
+                        card.zIndex = 1f + 0.01f * fromPosition;
+                    else
+                        card.zIndex = 1f + 0.01f * toPosition;
             }
 
             @Override

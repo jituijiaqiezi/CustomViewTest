@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.lcp.customviewtest.R;
 
-import util.DimentionUtil;
+import util.DimensionUtil;
 
 /**
  * Created by linchenpeng on 2017/6/15.
@@ -50,7 +50,7 @@ public class FloatingButton extends View {
         imagePaint.setColor(Color.WHITE);
 
         TypedArray array=getContext().obtainStyledAttributes(attrs,R.styleable.FloatingButton);
-        circleRaidus=array.getDimensionPixelSize(R.styleable.FloatingButton_circleRadius, (int) DimentionUtil.dp2px(getContext(),40));
+        circleRaidus=array.getDimensionPixelSize(R.styleable.FloatingButton_circleRadius, (int) DimensionUtil.dp2px(getContext(),40));
         imageRadius=array.getDimensionPixelSize(R.styleable.FloatingButton_imageRadius,2);
         array.recycle();
     }

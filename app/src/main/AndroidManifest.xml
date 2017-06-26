@@ -32,7 +32,7 @@
 
         <activity android:name="custom.spinnerloading.SpinnerLoadingActivity" />
         <activity android:name="custom.floatingbutton.FloatButtonActivity" />
-        <activity android:name="custom.indicator.IndicatorChooseActivity"></activity>
+        <activity android:name="custom.indicator.IndicatorChooseActivity" />
         <activity android:name="custom.indicator.IndicatorListActivity" />
         <activity android:name="custom.indicator.sample.SampleUnderlinesDefault" />
         <activity android:name="custom.indicator.sample.SampleUnderlinesNoFade" />
@@ -61,15 +61,22 @@
         <activity android:name="custom.indicator.sample.SampleTitlesStyledTheme" />
         <activity android:name="custom.indicator.sample.SampleTitlesTriangle" />
         <activity android:name="custom.indicator.sample.SampleTitlesWithListener" />
-        <activity android:name="custom.scroll2cover.Scroll2CoverActivity">
-        </activity>
-        <activity android:name="custom.infinitecards.InfiniteCardActivity">
+        <activity android:name="custom.scroll2cover.Scroll2CoverActivity" />
+        <activity android:name="custom.infinitecards.InfiniteCardActivity" />
+        <activity android:name="custom.viewpagertransformer.ViewPagerTransformerActivity"></activity>
+        <activity android:name="custom.calendar.TextLineActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="custom.calendar.TimeSelectActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

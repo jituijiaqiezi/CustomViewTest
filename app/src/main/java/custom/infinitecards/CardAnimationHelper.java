@@ -22,7 +22,7 @@ import custom.infinitecards.transformer.DefaultZIndexTransformerToFront;
  */
 
 public class CardAnimationHelper implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener {
-    static final int ANIM_DURATION = 1000, ANIM_ADD_REMOVE_DELAY = 200,
+    static final int ANIM_DURATION = 10000, ANIM_ADD_REMOVE_DELAY = 200,
             ANIM_ADD_REMOVE_DURATION = 500;
     //animation type
     private int mAnimType = InfiniteCardView.ANIM_TYPE_FRONT;
@@ -156,15 +156,13 @@ public class CardAnimationHelper implements Animator.AnimatorListener, ValueAnim
             for (int i = 0; i < mPositionToFront; i++) {
                 CardItem card = mCards.get(i);
                 doAnimationCommonView(card.view, fraction, fractionInterpolated, i, i + 1);
-                doAnimationZIndex(mZIndexTransformerCommon, card, fraction, fractionInterpolated,
-                        i, i + 1);
+                doAnimationZIndex(mZIndexTransformerCommon, card, fraction, fractionInterpolated, i, i + 1);
             }
         } else if (mAnimType == InfiniteCardView.ANIM_TYPE_FRONT_TO_LAST) {
             for (int i = mPositionToFront + 1; i < mCardCount; i++) {
                 CardItem card = mCards.get(i);
                 doAnimationCommonView(card.view, fraction, fractionInterpolated, i, i - 1);
-                doAnimationZIndex(mZIndexTransformerCommon, card, fraction, fractionInterpolated,
-                        i, i - 1);
+                doAnimationZIndex(mZIndexTransformerCommon, card, fraction, fractionInterpolated, i, i - 1);
             }
         }
     }
@@ -178,13 +176,10 @@ public class CardAnimationHelper implements Animator.AnimatorListener, ValueAnim
      * @param fromPosition         card moving from
      * @param toPosition           card moving to
      */
-    private void doAnimationCommonView(View view, float fraction, float fractionInterpolated, int
-            fromPosition, int toPosition) {
-        mTransformerCommon.transformAnimation(view, fraction, mCardWidth,
-                mCardHeight, fromPosition, toPosition);
+    private void doAnimationCommonView(View view, float fraction, float fractionInterpolated, int fromPosition, int toPosition) {
+        mTransformerCommon.transformAnimation(view, fraction, mCardWidth, mCardHeight, fromPosition, toPosition);
         if (mAnimInterpolator != null) {
-            mTransformerCommon.transformInterpolatedAnimation(view, fractionInterpolated, mCardWidth,
-                    mCardHeight, fromPosition, toPosition);
+            mTransformerCommon.transformInterpolatedAnimation(view, fractionInterpolated, mCardWidth, mCardHeight, fromPosition, toPosition);
         }
     }
 
@@ -200,11 +195,9 @@ public class CardAnimationHelper implements Animator.AnimatorListener, ValueAnim
      */
     private void doAnimationZIndex(ZIndexTransformer transformer, CardItem card, float fraction,
                                    float fractionInterpolated, int fromPosition, int toPosition) {
-        transformer.transformAnimation(card, fraction, mCardWidth,
-                mCardHeight, fromPosition, toPosition);
+        transformer.transformAnimation(card, fraction, mCardWidth, mCardHeight, fromPosition, toPosition);
         if (mAnimInterpolator != null) {
-            transformer.transformInterpolatedAnimation(card, fractionInterpolated, mCardWidth,
-                    mCardHeight, fromPosition, toPosition);
+            transformer.transformInterpolatedAnimation(card, fractionInterpolated, mCardWidth, mCardHeight, fromPosition, toPosition);
         }
     }
 
@@ -385,8 +378,7 @@ public class CardAnimationHelper implements Animator.AnimatorListener, ValueAnim
         }
     }
 
-    private void showAnimRemove(final View view, int delay, final int position,
-                                final boolean isLast, final BaseAdapter adapter) {
+    private void showAnimRemove(final View view, int delay, final int position, final boolean isLast, final BaseAdapter adapter) {
         final ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 1).setDuration(mAnimAddRemoveDuration);
         valueAnimator.setStartDelay(delay);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

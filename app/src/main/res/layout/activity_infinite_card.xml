@@ -8,7 +8,6 @@
     <custom.infinitecards.InfiniteCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:animDuration="1000"
         app:cardRatio="1"
         android:id="@+id/infinite_card_view"/>
     <LinearLayout

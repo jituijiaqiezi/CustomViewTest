@@ -6,4 +6,5 @@
     <color name="red">#fe5621</color>
     <color name="select">#FFCC0000</color>
     <color name="background">#FFCCCCCC</color>
+    <color name="backgroundP">#FFDDDDDD</color>
 </resources>

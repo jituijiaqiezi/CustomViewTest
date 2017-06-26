@@ -1,5 +1,6 @@
 package custom.infinitecards.transformer;
 
+import android.util.Log;
 import android.view.View;
 
 import custom.infinitecards.AnimationTransformer;
@@ -10,8 +11,13 @@ import custom.infinitecards.AnimationTransformer;
 
 public class DefaultTransformerToFront implements AnimationTransformer {
     @Override
+    public String getTag() {
+        return DefaultCommonTransformer.class.getSimpleName();
+    }
+
+    @Override
     public void transformAnimation(View view, float fraction, int cardWidth, int cardHeight, int fromPosition, int toPosition) {
-        int positionCount = fromPosition - toPosition;
+        Log.i(getTag(), "fromPosition:" + fromPosition + ",toPosition:" + toPosition);   int positionCount = fromPosition - toPosition;
         float scale = (0.8f - 0.1f * fromPosition) + (0.1f * fraction * positionCount);
         view.setScaleX(scale);
         view.setScaleY(scale);
