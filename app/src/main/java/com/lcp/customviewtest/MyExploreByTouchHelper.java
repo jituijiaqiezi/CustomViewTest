@@ -198,8 +198,8 @@ public abstract class MyExploreByTouchHelper extends View.AccessibilityDelegate 
      *
      * @param virtualViewId The virtual view id to invalidate, or
      *                      {@link #HOST_ID} to invalidate the root view.
-     * @param changeTypes The bit mask of change types. May be {@code 0} for the
-     *                    default (undefined) change type or one or more of:
+     * @param changeTypes The bit mask of changeRect types. May be {@code 0} for the
+     *                    default (undefined) changeRect type or one or more of:
      *         <ul>
      *         <li>{@link AccessibilityEvent#CONTENT_CHANGE_TYPE_CONTENT_DESCRIPTION}
      *         <li>{@link AccessibilityEvent#CONTENT_CHANGE_TYPE_SUBTREE}

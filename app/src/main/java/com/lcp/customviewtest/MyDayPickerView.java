@@ -398,7 +398,7 @@ class MyDayPickerView extends ViewGroup {
             }
 
             // Animation is expensive for accessibility services since it sends
-            // lots of scroll and content change events.
+            // lots of scroll and content changeRect events.
             final boolean animate = !mAccessibilityManager.isEnabled();
 
             // ViewPager clamps input values, so we don't need to worry

@@ -52,7 +52,7 @@ class MyCalendarViewLegacyDelegate extends MyCalendarView.AbstractCalendarViewDe
     private static final long MILLIS_IN_WEEK = DAYS_PER_WEEK * MILLIS_IN_DAY;
 
     /**
-     * Affects when the month selection will change while scrolling upe
+     * Affects when the month selection will changeRect while scrolling upe
      */
     private static final int SCROLL_HYST_WEEKS = 2;
 
@@ -741,12 +741,12 @@ class MyCalendarViewLegacyDelegate extends MyCalendarView.AbstractCalendarViewDe
 
     /**
      * This moves to the specified time in the view. If the time is not already
-     * in range it will move the list so that the first of the month containing
+     * in range it will reLayoutTop the list so that the first of the month containing
      * the time is at the top of the view. If the new time is already in view
      * the list will not be scrolled unless forceScroll is true. This time may
      * optionally be highlighted as selected as well.
      *
-     * @param date The time to move to.
+     * @param date The time to reLayoutTop to.
      * @param animate Whether to scroll to the given time or just redraw at the
      *            new location.
      * @param setSelected Whether to set the given time as selected.

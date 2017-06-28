@@ -22,7 +22,7 @@
     <string name="font_family_caption_material">sans-serif-condensed-light</string>
     <string name="font_family_button_material">sans-serif-condensed</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or reLayoutTop this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

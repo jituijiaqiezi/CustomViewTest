@@ -5,10 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
-/**
- * Created by linchenpeng on 2017/6/26.
- */
-
 public class CalendarRecyclerView extends RecyclerView {
     public CalendarRecyclerView(Context context) {
         super(context);
@@ -22,8 +18,9 @@ public class CalendarRecyclerView extends RecyclerView {
         super(context, attrs, defStyle);
     }
 
-    /*@Override
-    public boolean onTouchEvent(MotionEvent e) {
-        return false;
-    }*/
+    @Override
+    protected void onMeasure(int widthSpec, int heightSpec) {
+        int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
+        super.onMeasure(widthSpec, expandSpec);
+    }
 }

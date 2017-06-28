@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/recyclerView_time"
+        android:layout_toRightOf="@+id/recyclerView_time"
+        android:paddingTop="@dimen/time_height_half" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignLeft="@id/recyclerView_content"
+        android:layout_alignStart="@id/recyclerView_content"
+        android:layout_below="@id/recyclerView_content"
+        android:background="#7e8f9b"
+        android:paddingBottom="@dimen/time_height_half" />
+
+    <custom.calendar.RectView
+        android:id="@+id/rectView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <custom.calendar.TopCircleView
+        android:id="@+id/topCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <custom.calendar.BottomCircleView
+        android:id="@+id/bottomCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

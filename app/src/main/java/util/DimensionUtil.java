@@ -18,4 +18,10 @@ public class DimensionUtil {
         float density = context.getResources().getDisplayMetrics().density;
         return (int) (dip * density + 0.5F);
     }
+    public static int screenWidth(Context context){
+        return context.getResources().getDisplayMetrics().widthPixels;
+    }
+    public static int screenHeight(Context context){
+        return context.getResources().getDisplayMetrics().heightPixels;
+    }
 }

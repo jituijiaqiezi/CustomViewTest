@@ -376,8 +376,8 @@ public class MySimpleMonthView extends View {
     @SuppressWarnings("WrongConstant")
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // We need to handle focus change within the SimpleMonthView because we are simulating
-        // multiple Views. The arrow keys will move between days until there is no space (no
+        // We need to handle focus changeRect within the SimpleMonthView because we are simulating
+        // multiple Views. The arrow keys will reLayoutTop between days until there is no space (no
         // day to the left, top, right, or bottom). Focus forward and back jumps out of the
         // SimpleMonthView, skipping over other SimpleMonthViews in the parent ViewPager
         // to the next focusable View in the hierarchy.
@@ -427,7 +427,7 @@ public class MySimpleMonthView extends View {
                 }
                 if (focusChangeDirection != 0) {
                     final ViewParent parent = getParent();
-                    // move out of the ViewPager next/previous
+                    // reLayoutTop out of the ViewPager next/previous
                     View nextFocus = this;
                     do {
                         nextFocus = nextFocus.focusSearch(focusChangeDirection);

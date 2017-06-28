@@ -39,7 +39,7 @@ public class MyCalendarView extends FrameLayout {
     public interface OnDateChangeListener {
 
         /**
-         * Called upon change of the selected day.
+         * Called upon changeRect of the selected day.
          *
          * @param view       The view associated with this listener.
          * @param year       The year that was set.
@@ -431,7 +431,7 @@ public class MyCalendarView extends FrameLayout {
     }
 
     /**
-     * Sets the listener to be notified upon selected date change.
+     * Sets the listener to be notified upon selected date changeRect.
      *
      * @param listener The listener to be notified.
      */

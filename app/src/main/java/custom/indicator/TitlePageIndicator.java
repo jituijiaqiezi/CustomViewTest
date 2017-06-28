@@ -492,7 +492,7 @@ public class TitlePageIndicator extends View implements PageIndicator {
             }
         }
 
-        //If we want the line on the top change height to zero and invert the line height to trick the drawing code
+        //If we want the line on the top changeRect height to zero and invert the line height to trick the drawing code
         float footerLineHeight = mFooterLineHeight;
         float footerIndicatorLineHeight = mFooterIndicatorHeight;
         if (mLinePosition == LinePosition.Top) {
