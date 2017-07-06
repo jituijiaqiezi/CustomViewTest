@@ -63,18 +63,32 @@
         <activity android:name="custom.indicator.sample.SampleTitlesWithListener" />
         <activity android:name="custom.scroll2cover.Scroll2CoverActivity" />
         <activity android:name="custom.infinitecards.InfiniteCardActivity" />
-        <activity android:name="custom.viewpagertransformer.ViewPagerTransformerActivity"></activity>
-        <activity android:name="custom.calendar.TextLineActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name="custom.viewpagertransformer.ViewPagerTransformerActivity" />
+        <activity android:name="custom.calendar.CalendarActivity">
 
+            <!--
+                        <intent-filter>
+                            <action android:name="android.intent.action.MAIN" />
+                            <category android:name="android.intent.category.LAUNCHER" />
+                        </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name="custom.calendar.TimeSelectActivity"
+            android:theme="@style/NoTitle" />
+        <activity android:name=".ScrollViewActivity" />
+        <activity android:name="custom.path.Win8SearchActivity" />
+        <activity android:name="custom.path.PathActivity" />
+        <activity android:name=".EnterActivity">
+            <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="custom.calendar.TimeSelectActivity"
-            android:theme="@style/NoTitle">
-
-        </activity>
+        <activity android:name="custom.path.FlipShareActivity" />
+        <activity android:name="custom.scroller.ScrollerActivity"></activity>
+        <activity android:name="custom.scroller.CurtainActivity"/>
     </application>
 
 </manifest>

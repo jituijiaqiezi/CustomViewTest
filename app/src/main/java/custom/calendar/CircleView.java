@@ -4,8 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewConfiguration;
 
@@ -18,13 +20,16 @@ import util.DimensionUtil;
  */
 
 public class CircleView extends View {
-    boolean translate=false;
-    int mTransitionX,mTransitionY;
+    private final String TAG=CircleView.class.getSimpleName();
+    boolean translate = false;
     float radius, circleStrokeWidth, padding, blockWidth, blockHeight;
     Paint innerCirclePaint, circlePaint;
     int mLastMotionX, mLastMotionY;
-    int mPointerId, mTouchSlop, contentPadding, marginLeft;
+    int mPointerId, mTouchSlop, marginTop, marginLeft;
     LayoutChangeListener mLayoutChangeListener;
+    Runnable scrollRunnable;
+    long mEventTime;
+    CustomPoint mLastPoint, mTempPoint;
 
     public CircleView(Context context) {
         this(context, null);
@@ -45,8 +50,8 @@ public class CircleView extends View {
         setMeasuredDimension(width, width);
     }
 
-    private void init() {
-        contentPadding = getResources().getDimensionPixelSize(R.dimen.time_height_half);
+    protected void init() {
+        marginTop = getResources().getDimensionPixelSize(R.dimen.time_height_half);
         radius = DimensionUtil.dp2px(getContext(), 5);
         circleStrokeWidth = DimensionUtil.dp2px(getContext(), 3);
         padding = DimensionUtil.dp2px(getContext(), 5);
@@ -58,6 +63,12 @@ public class CircleView extends View {
         circlePaint.setStrokeWidth(circleStrokeWidth);
         circlePaint.setColor(getResources().getColor(android.R.color.holo_blue_dark));
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+    }
+
+    public boolean upScroll() {
+        int[] locations = new int[2];
+        getLocationOnScreen(locations);
+        return locations[1] <= DimensionUtil.screenHeight(getContext()) / 2;
     }
 
     @Override
@@ -83,12 +94,17 @@ public class CircleView extends View {
 
         Point reLayoutBottom(int deltaX, int deltaY);
 
-        void disallowInterceptTouchEvent(boolean yes);
+        void disallowInterceptTouchEvent(boolean disallow);
+
+        boolean onScroll(boolean up);
+
+        boolean minHeight();
     }
 
     public void reLayout(View view, int marginLeft) {
         this.marginLeft = marginLeft;
         blockWidth = view.getRight() - view.getLeft();
+        Log.i(TAG,blockWidth+"");
         blockHeight = view.getBottom() - view.getTop();
         reLayout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
     }

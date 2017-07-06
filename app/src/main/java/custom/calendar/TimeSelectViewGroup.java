@@ -1,12 +1,14 @@
 package custom.calendar;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -32,7 +34,7 @@ public class TimeSelectViewGroup extends RelativeLayout implements CircleView.La
     RecyclerView recyclerViewTime;
     int contentPadding;
     boolean isViewAdd = false;
-    DisallowInterceptTouchEvent disallowInterceptTouchEvent;
+    OnCustomTouchEvent onCustomTouchEvent;
 
     public TimeSelectViewGroup(Context context) {
         this(context, null);
@@ -47,19 +49,19 @@ public class TimeSelectViewGroup extends RelativeLayout implements CircleView.La
         init(context);
     }
 
-    public void setDisallowInterceptTouchEvent(DisallowInterceptTouchEvent disallowInterceptTouchEvent) {
-        this.disallowInterceptTouchEvent = disallowInterceptTouchEvent;
+    public void setOnCustomTouchEvent(OnCustomTouchEvent onCustomTouchEvent) {
+        this.onCustomTouchEvent = onCustomTouchEvent;
     }
 
     private void init(Context context) {
         View view = View.inflate(context, R.layout.view_group_time_select, this);
         contentPadding = getResources().getDimensionPixelSize(R.dimen.time_height_half);
-        /*rectView = new RectView(getContext());
+        rectView = new RectView(getContext());
         topCircle = new TopCircleView(getContext());
-        bottomCircle = new BottomCircleView(getContext());*/
-        rectView = (RectView) view.findViewById(R.id.rectView);
+        bottomCircle = new BottomCircleView(getContext());
+        /*rectView = (RectView) view.findViewById(R.id.rectView);
         topCircle = (TopCircleView) view.findViewById(R.id.topCircle);
-        bottomCircle = (BottomCircleView) view.findViewById(R.id.bottomCircle);
+        bottomCircle = (BottomCircleView) view.findViewById(R.id.bottomCircle);*/
 
         topCircle.setLayoutChangeListener(this);
         bottomCircle.setLayoutChangeListener(this);
@@ -99,21 +101,50 @@ public class TimeSelectViewGroup extends RelativeLayout implements CircleView.La
     }
 
     private void removeView() {
-        removeView(rectView);
-        removeView(topCircle);
-        removeView(bottomCircle);
+
     }
 
-    private void drawSelectArea(View view) {
-        /*if (isViewAdd) {
-            removeView();
-        } else {*/
-            rectView.reLayout(view,recyclerViewTime.getWidth());
-            topCircle.reLayout(view,recyclerViewTime.getWidth());
-            bottomCircle.reLayout(view,recyclerViewTime.getWidth());
-            /*addView();
+    private void drawSelectArea(final View view) {
+        if (isViewAdd) {
+            removeView(rectView);
+            removeView(topCircle);
+            removeView(bottomCircle);
+        } else {
+            rectView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    rectView.getViewTreeObserver().removeOnPreDrawListener(this);
+                    rectView.reLayout(view, recyclerViewTime.getWidth());
+                    return false;
+                }
+            });
+            topCircle.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    topCircle.getViewTreeObserver().removeOnPreDrawListener(this);
+                    topCircle.reLayout(view, recyclerViewTime.getWidth());
+                    return false;
+                }
+            });
+            bottomCircle.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    bottomCircle.getViewTreeObserver().removeOnPreDrawListener(this);
+                    bottomCircle.reLayout(view, recyclerViewTime.getWidth());
+                    return false;
+                }
+            });
+            addView(rectView);
+            addView(topCircle);
+            addView(bottomCircle);
         }
-        isViewAdd = !isViewAdd;*/
+        isViewAdd = !isViewAdd;
+    }
+
+    private void setVisible() {
+        rectView.setVisibility(isViewAdd ? VISIBLE : GONE);
+        topCircle.setVisibility(isViewAdd ? VISIBLE : GONE);
+        bottomCircle.setVisibility(isViewAdd ? VISIBLE : GONE);
     }
 
     @Override
@@ -127,11 +158,23 @@ public class TimeSelectViewGroup extends RelativeLayout implements CircleView.La
     }
 
     @Override
-    public void disallowInterceptTouchEvent(boolean yes) {
-        disallowInterceptTouchEvent.disallowInterceptTouchEvent(yes);
+    public void disallowInterceptTouchEvent(boolean disallow) {
+        onCustomTouchEvent.disallowInterceptTouchEvent(disallow);
     }
 
-    interface DisallowInterceptTouchEvent {
-        void disallowInterceptTouchEvent(boolean yes);
+    @Override
+    public boolean onScroll(boolean up) {
+        return onCustomTouchEvent.onScroll(up);
+    }
+
+    @Override
+    public boolean minHeight() {
+        return rectView.getHeight() <= rectView.getMinHeight();
+    }
+
+    interface OnCustomTouchEvent {
+        void disallowInterceptTouchEvent(boolean disallow);
+
+        boolean onScroll(boolean up);
     }
 }

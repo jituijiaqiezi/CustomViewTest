@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.lcp.customviewtest.R;
 
-public class TextLineActivity extends AppCompatActivity {
+public class CalendarActivity extends AppCompatActivity {
 
     ViewPager viewPager;
 

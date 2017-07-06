@@ -1,6 +1,8 @@
 package custom.calendar;
 
 import android.content.Context;
+import android.graphics.Point;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -25,25 +27,56 @@ public class TopCircleView extends CircleView {
     }
 
     @Override
+    protected void init() {
+        super.init();
+        scrollRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (mLayoutChangeListener != null) {
+                    // TODO: 2017/6/29 //首先应该判断方框的大小是否小等于最小高度，如果是，则不向下滑动了
+                    if (!mLayoutChangeListener.minHeight()&&mTempPoint.equals(mLastPoint) && SystemClock.uptimeMillis() - mEventTime >= 500) {
+                        boolean up = upScroll();
+                        boolean canScroll = mLayoutChangeListener.onScroll(up);
+                        if (canScroll && mLayoutChangeListener != null) {
+                            Point point = mLayoutChangeListener.reLayoutTop(0, up ? -30 : 30);
+                            int transitionY = (int) (getTranslationY() + point.y);
+                            setTranslationY(transitionY);
+                        }
+                    }
+                }
+                postDelayed(scrollRunnable, 30);
+            }
+        };
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
+        mTempPoint = new CustomPoint(event.getRawX(), event.getRawY());
         int tempY = (int) event.getRawY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                mLastPoint = new CustomPoint(event.getRawX(), event.getRawY());
+                mEventTime = event.getDownTime();
+                post(scrollRunnable);
                 mLayoutChangeListener.disallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_MOVE:
+                if (!mLastPoint.equals(mTempPoint)) {
+                    //不相等说明滑动了，那就重新计算时间
+                    mEventTime = event.getEventTime();
+                }
+                mLastPoint = mTempPoint;
+
                 translate = true;
                 int deltaY = tempY - mLastMotionY;
-                /*if (getTop() + deltaY <= contentPadding - getMeasuredHeight() / 2)
-                    deltaY = contentPadding - getMeasuredHeight() / 2 - getTop();*/
                 if (mLayoutChangeListener != null) {
                     Point point = mLayoutChangeListener.reLayoutTop(0, deltaY);
-                    //reLayout(point.deltaX, point.deltaY);
-                    int transitionY = (int) (getTranslationY() + point.deltaY);
+                    int transitionY = (int) (getTranslationY() + point.y);
                     setTranslationY(transitionY);
                 }
                 break;
             case MotionEvent.ACTION_UP:
+                removeCallbacks(scrollRunnable);
                 mLayoutChangeListener.disallowInterceptTouchEvent(false);
                 break;
         }
@@ -58,16 +91,13 @@ public class TopCircleView extends CircleView {
         right = left + getMeasuredWidth();
         bottom = top + getMeasuredHeight() / 2;
         top = top - getMeasuredHeight() / 2;
-        /*layout(marginLeft+left, firstTop, marginLeft+right, lastBottom);
-        invalidate();*/
         if (translate) {
-            int deltaX = (int) (marginLeft+left - getX());
+            int deltaX = (int) (marginLeft + left - getX());
             int deltaY = (int) (top - getY());
             setTranslationX(getTranslationX() + deltaX);
             setTranslationY(getTranslationY() + deltaY);
         } else {
             layout(marginLeft + left, top, marginLeft + right, bottom);
-            forceLayout();
         }
     }
 }

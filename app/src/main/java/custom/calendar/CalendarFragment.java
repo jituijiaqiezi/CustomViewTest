@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 
 import com.lcp.customviewtest.R;
 
@@ -19,16 +18,15 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CalendarFragment extends Fragment implements TimeSelectViewGroup.DisallowInterceptTouchEvent {
-
-    ScrollView scrollView;
+public class CalendarFragment extends Fragment implements TimeSelectViewGroup.OnCustomTouchEvent {
+    private static final String TAG = CalendarFragment.class.getSimpleName();
+    CalendarScrollView scrollView;
     TimeSelectViewGroup timeSelectViewGroup;
 
     RecyclerView recyclerViewWeek;
     List<String> weeks;
 
     ViewPager viewPager;
-
 
     public CalendarFragment() {
     }
@@ -63,13 +61,20 @@ public class CalendarFragment extends Fragment implements TimeSelectViewGroup.Di
         recyclerViewWeek.setAdapter(new CalendarWeekAdapter(weeks));
 
         timeSelectViewGroup = (TimeSelectViewGroup) view.findViewById(R.id.time_select_view);
-        timeSelectViewGroup.setDisallowInterceptTouchEvent(this);
+        timeSelectViewGroup.setOnCustomTouchEvent(this);
 
     }
 
     @Override
-    public void disallowInterceptTouchEvent(boolean yes) {
-        scrollView.requestDisallowInterceptTouchEvent(yes);
-        viewPager.requestDisallowInterceptTouchEvent(yes);
+    public void disallowInterceptTouchEvent(boolean disallow) {
+        scrollView.requestDisallowInterceptTouchEvent(disallow);
+        viewPager.requestDisallowInterceptTouchEvent(disallow);
+    }
+
+    @Override
+    public boolean onScroll(boolean up) {
+        scrollView.smoothScrollBy(0, up ? -30 : 30);
+        return scrollView.canScrollVertically(up ? -1 : 1);
+
     }
 }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?><!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/scroll_to_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="scrollTo"/>
+
+    <Button
+        android:id="@+id/scroll_by_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="scrollBy"/>
+
+</LinearLayout>--><!--<custom.scroller.ScrollerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="This is first child view"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="This is second child view"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="This is third child view"/>
+
+</custom.scroller.ScrollerLayout>-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<custom.gesturedetector.GestureTextView
+        android:id="@+id/gesture"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="hello" />-->
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="开始下落" />
+
+    <custom.scroller.ScrollerLayout2
+        android:id="@+id/parentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/button"
+        android:gravity="center_horizontal|bottom">
+
+        <custom.scroller.BallView
+            android:id="@+id/viewA"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignEnd="@+id/button"
+            android:layout_alignRight="@+id/button"
+            android:layout_alignTop="@+id/view" />
+    </custom.scroller.ScrollerLayout2>
+</RelativeLayout>

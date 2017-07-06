@@ -3,6 +3,7 @@ package custom.calendar;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -19,7 +20,8 @@ import util.DimensionUtil;
 public class RectView extends View {
     private static final String TAG = RectView.class.getSimpleName();
     float strokeWidth, blockWidth, blockHeight;
-    int minHeight, minWidth, maxHeight, maxWidth, marginTop, marginLeft;
+    //minWidth是要多于1/3 blockWidth时才添加新框
+    int minWidth, minHeight, maxHeight, maxWidth, marginTop, marginLeft;
     Paint innerRectPaint, rectPaint;
     int firstTop, lastBottom;
 
@@ -37,7 +39,6 @@ public class RectView extends View {
     }
 
     private void init() {
-        minHeight = DimensionUtil.dip2px(getContext(), 3);
         marginTop = getResources().getDimensionPixelSize(R.dimen.time_height_half);
         strokeWidth = 2;
         innerRectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -80,11 +81,13 @@ public class RectView extends View {
         }
         if (lastBottom + deltaY >= maxHeight + marginTop)
             deltaY = maxHeight + marginTop - lastBottom;
+
+        // TODO: 2017/7/4 处理只有当超过1/3时才显示第二个框
         if (getRight() + deltaX <= getLeft() + blockWidth)
             deltaX = (int) (getLeft() + blockWidth - getRight());
         int screenWidth = DimensionUtil.screenWidth(getContext());
-        if (getRight() + deltaX >= screenWidth)
-            deltaX = screenWidth - getRight();
+        /*if (getRight() + deltaX >= screenWidth)
+            deltaX = screenWidth - getRight();*/
 
         reLayout(getLeft(), firstTop, getRight() + deltaX, lastBottom + deltaY);
         return new Point(deltaX, deltaY);
@@ -104,7 +107,7 @@ public class RectView extends View {
             if (count > 2)
                 canvas.drawRect(blockWidth, 0, blockWidth * (count - 1), 24 * blockHeight, rectPaint);
             //最后画结束时间
-            canvas.drawRect(blockWidth * (count - 1), 0, getWidth(), lastBottom-marginTop, rectPaint);
+            canvas.drawRect(blockWidth * (count - 1), 0, getWidth(), lastBottom - marginTop, rectPaint);
         }
 
     }
@@ -112,16 +115,17 @@ public class RectView extends View {
     public void reLayout(View view, int marginLeft) {
         this.marginLeft = marginLeft;
         blockWidth = view.getRight() - view.getLeft();
+        minWidth = (int) (blockWidth / 3);
         blockHeight = view.getBottom() - view.getTop();
-        minWidth = (int) blockWidth;
-        maxWidth = 7 * minWidth;
+        maxWidth = (int) (7 * blockWidth);
         maxHeight = (int) (24 * blockHeight);
+        minHeight = (int) (2 * blockHeight / 3);
         reLayout(marginLeft + view.getLeft(), view.getTop(), marginLeft + view.getRight(), view.getBottom());
     }
 
     private void reLayout(int left, int top, int right, int bottom) {
         int count = (int) Math.ceil((right - left) / blockWidth);
-        Log.i(TAG, "lastBottom:"+lastBottom);
+        Log.i(TAG, "lastBottom:" + lastBottom);
         this.firstTop = top;
         this.lastBottom = bottom;
         if (count > 1) {
@@ -130,5 +134,9 @@ public class RectView extends View {
         }
         layout(left, top, right, bottom);
         invalidate();
+    }
+
+    public int getMinHeight() {
+        return minHeight;
     }
 }

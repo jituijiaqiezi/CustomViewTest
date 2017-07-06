@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DatePickerTest</string>
+    <string name="app_name">CustomViewTest</string>
     <string name="date_picker_prev_month_button" msgid="2858244643992056505">"上个月"</string>
     <string name="date_picker_next_month_button" msgid="5559507736887605055">"下个月"</string>
 
