@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/time_height_half" />
 
-    <custom.calendar.TimeSelectViewGroup
+    <custom.calendar.TimeSelectView
         android:id="@+id/time_select_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -11,18 +11,18 @@ import android.view.MotionEvent;
  * Created by linchenpeng on 2017/6/26.
  */
 
-public class TopCircleView extends CircleView {
-    private static final String TAG = TopCircleView.class.getSimpleName();
+public class CircleTop extends CircleView {
+    private static final String TAG = CircleTop.class.getSimpleName();
 
-    public TopCircleView(Context context) {
+    public CircleTop(Context context) {
         super(context);
     }
 
-    public TopCircleView(Context context, @Nullable AttributeSet attrs) {
+    public CircleTop(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public TopCircleView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CircleTop(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -92,12 +92,12 @@ public class TopCircleView extends CircleView {
         bottom = top + getMeasuredHeight() / 2;
         top = top - getMeasuredHeight() / 2;
         if (translate) {
-            int deltaX = (int) (marginLeft + left - getX());
+            int deltaX = (int) (left - getX());
             int deltaY = (int) (top - getY());
             setTranslationX(getTranslationX() + deltaX);
             setTranslationY(getTranslationY() + deltaY);
         } else {
-            layout(marginLeft + left, top, marginLeft + right, bottom);
+            layout(left, top, right, bottom);
         }
     }
 }

@@ -343,7 +343,7 @@ public class CardAnimationHelper implements Animator.AnimatorListener, ValueAnim
     }
 
     /**
-     * init adapter view
+     * initData adapter view
      *
      * @param adapter adapter
      */

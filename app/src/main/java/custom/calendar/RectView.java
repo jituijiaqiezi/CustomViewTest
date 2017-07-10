@@ -95,6 +95,7 @@ public class RectView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        Log.i(TAG, "画onDraw:" + getTop() + "," + getY());
         int count = (int) Math.ceil(getWidth() / blockWidth);
         if (count <= 1) {
             //开始和结束时间在同一天
@@ -112,7 +113,7 @@ public class RectView extends View {
 
     }
 
-    public void reLayout(View view, int marginLeft) {
+    public void reLayout(View view, int marginLeft, int marginTop) {
         this.marginLeft = marginLeft;
         blockWidth = view.getRight() - view.getLeft();
         minWidth = (int) (blockWidth / 3);
@@ -120,14 +121,27 @@ public class RectView extends View {
         maxWidth = (int) (7 * blockWidth);
         maxHeight = (int) (24 * blockHeight);
         minHeight = (int) (2 * blockHeight / 3);
-        reLayout(marginLeft + view.getLeft(), view.getTop(), marginLeft + view.getRight(), view.getBottom());
+        this.marginTop = getResources().getDimensionPixelSize(R.dimen.time_height_half) + marginTop;
+        reLayout(marginLeft + view.getLeft(), view.getTop() + marginTop, marginLeft + view.getRight(), view.getBottom() + marginTop);
+    }
+
+    public void reLayout(int x, int y, int width, int height, int marginLeft, int marginTop) {
+        this.marginLeft = marginLeft;
+        blockWidth = width;
+        minWidth = (int) (blockWidth / 3);
+        blockHeight = height;
+        maxWidth = (int) (7 * blockWidth);
+        maxHeight = (int) (24 * blockHeight);
+        minHeight = (int) (2 * blockHeight / 3);
+        this.marginTop = getResources().getDimensionPixelSize(R.dimen.time_height_half) + marginTop;
+        reLayout(x, y,  x + width,  y + height);
     }
 
     private void reLayout(int left, int top, int right, int bottom) {
         int count = (int) Math.ceil((right - left) / blockWidth);
-        Log.i(TAG, "lastBottom:" + lastBottom);
         this.firstTop = top;
         this.lastBottom = bottom;
+        Log.i(TAG, "画:整体top:" + marginTop + ",这一列top:" + top);
         if (count > 1) {
             top = marginTop;
             bottom = maxHeight + marginTop;

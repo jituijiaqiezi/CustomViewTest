@@ -1,0 +1,47 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <custom.viewgroup.PullToRefreshScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ccc"
+        android:id="@+id/pull_to_refresh_view">
+
+
+        <include
+            android:id="@+id/top_layout"
+            layout="@layout/top_layout" />
+
+        <Button
+            android:id="@+id/view_click"
+            android:layout_width="match_parent"
+            android:layout_height="500dip"
+            android:background="#323232"
+            android:text="跳转到应用市场"/>
+
+        <Button
+            android:id="@+id/view_click2"
+            android:layout_width="match_parent"
+            android:layout_height="500dip"
+            android:background="#555555"
+            android:text="跳转到应用市场"/>
+
+        <Button
+            android:id="@+id/view_click3"
+            android:layout_width="match_parent"
+            android:layout_height="500dip"
+            android:background="#555555"
+            android:text="跳转到应用市场"/>
+
+        <include
+            android:id="@+id/footer_layout"
+            layout="@layout/footer_layout" />
+
+
+    </custom.viewgroup.PullToRefreshScrollView>
+
+
+</FrameLayout>
+

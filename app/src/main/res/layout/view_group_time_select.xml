@@ -26,21 +26,4 @@
         android:layout_below="@id/recyclerView_content"
         android:background="#7e8f9b"
         android:paddingBottom="@dimen/time_height_half" />
-
-   <!-- <custom.calendar.RectView
-        android:id="@+id/rectView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <custom.calendar.TopCircleView
-        android:id="@+id/topCircle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-
-    <custom.calendar.BottomCircleView
-        android:id="@+id/bottomCircle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />-->
 </RelativeLayout>

@@ -20,7 +20,7 @@ import util.DimensionUtil;
  */
 
 public class CircleView extends View {
-    private final String TAG=CircleView.class.getSimpleName();
+    private final String TAG = CircleView.class.getSimpleName();
     boolean translate = false;
     float radius, circleStrokeWidth, padding, blockWidth, blockHeight;
     Paint innerCirclePaint, circlePaint;
@@ -101,11 +101,18 @@ public class CircleView extends View {
         boolean minHeight();
     }
 
-    public void reLayout(View view, int marginLeft) {
+    public void reLayout(View view, int marginLeft, int marginTop) {
         this.marginLeft = marginLeft;
         blockWidth = view.getRight() - view.getLeft();
-        Log.i(TAG,blockWidth+"");
+        Log.i(TAG, blockWidth + "");
         blockHeight = view.getBottom() - view.getTop();
-        reLayout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
+        reLayout(view.getLeft(), view.getTop() + marginTop, view.getRight(), view.getBottom() + marginTop);
+    }
+
+    public void reLayout(int x, int y, int width, int height, int marginLeft, int marginTop) {
+        this.marginLeft = marginLeft;
+        blockWidth = width;
+        blockHeight = height;
+        reLayout(x, y, x + width, y + height);
     }
 }

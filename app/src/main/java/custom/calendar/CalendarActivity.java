@@ -9,15 +9,17 @@ import com.lcp.customviewtest.R;
 public class CalendarActivity extends AppCompatActivity {
 
     ViewPager viewPager;
+    TimeSelectView timeSelectView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_text_line);
+        setContentView(R.layout.activity_calendar);
         init();
     }
     private void init(){
         viewPager=(ViewPager)findViewById(R.id.viewpager);
-        viewPager.setAdapter(new CalendarFragmentAdapter(getSupportFragmentManager(),viewPager));
+        timeSelectView=(TimeSelectView)findViewById(R.id.time_select_view);
+        viewPager.setAdapter(new CalendarFragmentAdapter(getSupportFragmentManager(),viewPager,timeSelectView));
     }
 }

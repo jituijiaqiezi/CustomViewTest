@@ -7,7 +7,6 @@
     tools:context="custom.calendar.CalendarActivity">
 
     <LinearLayout
-        android:id="@+id/ll_week"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -31,33 +30,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView_time"
+            <custom.calendar.TimeSelectView
+                android:id="@+id/time_select_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingStart="5dp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/recyclerView_time"
-                android:layout_toRightOf="@+id/recyclerView_time"
-                android:paddingTop="@dimen/time_height_half" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_alignLeft="@id/recyclerView_content"
-                android:layout_alignStart="@id/recyclerView_content"
-                android:layout_below="@id/recyclerView_content"
-                android:background="#7e8f9b"
-                android:paddingBottom="@dimen/time_height_half" />
-        </RelativeLayout>
+                android:layout_toRightOf="@+id/recyclerView_time" />
     </custom.calendar.CalendarScrollView>
 </LinearLayout>

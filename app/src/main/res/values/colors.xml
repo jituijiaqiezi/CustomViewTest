@@ -10,4 +10,5 @@
     <color name="main_blue">#45b1f7</color>
     <color name="main_blue_light">#BBFFFF</color>
     <color name="main_blue_gray">#7745b1f7</color>
+    <color name="top_layout_color">#4Dffffff</color>
 </resources>
