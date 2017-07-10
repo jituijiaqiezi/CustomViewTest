@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -63,7 +64,7 @@ public class CalendarFragment extends Fragment implements TimeSelectView.OnCusto
     }
 
     private void init(final View view) {
-        llWeek=(LinearLayout)view.findViewById(R.id.ll_week);
+        llWeek = (LinearLayout) view.findViewById(R.id.ll_week);
         scrollView = (CalendarScrollView) view.findViewById(R.id.scrollView);
         weeks = new ArrayList<String>() {{
             add("周日");
@@ -93,13 +94,13 @@ public class CalendarFragment extends Fragment implements TimeSelectView.OnCusto
                 int[] locations = new int[2];
                 view.getLocationOnScreen(locations);
                 Log.i(TAG, "父view在屏幕中的位置:" + contentScreenLocations[0] + "*" + contentScreenLocations[1] + ";" +
-                        "父view在绘图区的位置:"+contentParentLocations[0] +"*"+contentParentLocations[1]+";"+
+                        "父view在绘图区的位置:" + contentParentLocations[0] + "*" + contentParentLocations[1] + ";" +
                         "在屏幕中的位置:" + locations[0] + "*" + locations[1]);
-                Log.i(TAG,"屏幕:"+view.getX()+"*"+view.getY());
-                Log.i(TAG,"周高度:"+recyclerViewWeek.getHeight()+",周父view高度:"+llWeek.getHeight());
-                Log.i(TAG,"每个方框的宽度:"+view.getWidth());
+                Log.i(TAG, "屏幕:" + view.getX() + "*" + view.getY());
+                Log.i(TAG, "周高度:" + recyclerViewWeek.getHeight() + ",周父view高度:" + llWeek.getHeight());
+                Log.i(TAG, "每个方框的宽度:" + view.getWidth());
                 if (timeSelectView != null) {
-                    timeSelectView.drawSelectArea(locations[0], locations[1] - contentScreenLocations[1]+llWeek.getHeight(), view.getWidth(), view.getHeight(), recyclerViewTime.getWidth(), llWeek.getHeight());
+                    timeSelectView.drawSelectArea(locations[0], locations[1] - contentScreenLocations[1] + llWeek.getHeight(), view.getWidth(), view.getHeight(), recyclerViewTime.getWidth(), llWeek.getHeight());
                 }
             }
         });
@@ -108,8 +109,8 @@ public class CalendarFragment extends Fragment implements TimeSelectView.OnCusto
             @Override
             public void run() {
                 recyclerViewContent.getLocationOnScreen(contentScreenLocations);
-                contentParentLocations[0]= (int) recyclerViewContent.getX();
-                contentParentLocations[1]= (int) recyclerViewContent.getY();
+                contentParentLocations[0] = (int) recyclerViewContent.getX();
+                contentParentLocations[1] = (int) recyclerViewContent.getY();
             }
         });
 
@@ -122,6 +123,14 @@ public class CalendarFragment extends Fragment implements TimeSelectView.OnCusto
         recyclerViewTime.setAdapter(new CalendarTimeAdapter(getContext(), times));
         recyclerViewTime.addItemDecoration(new TimeItemDecoration(getContext()));
 
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                timeSelectView.removeView();
+                return false;
+            }
+        });
+
     }
 
 
@@ -133,8 +142,11 @@ public class CalendarFragment extends Fragment implements TimeSelectView.OnCusto
 
     @Override
     public boolean onScroll(boolean up) {
+        Log.i(TAG,"滑动方向:"+(up?"向上":"向下"));
         scrollView.smoothScrollBy(0, up ? -30 : 30);
-        return scrollView.canScrollVertically(up ? -1 : 1);
+        boolean canScroll = scrollView.canScrollVertically(up ? -1 : 1);
+        Log.i(TAG,"是否可以滑动:"+canScroll);
+        return canScroll;
 
     }
 }

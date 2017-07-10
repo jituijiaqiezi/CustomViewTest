@@ -5,7 +5,6 @@ import android.graphics.Point;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 
 /**
@@ -40,12 +39,14 @@ public class CircleBottom extends CircleView {
                 if (mLayoutChangeListener != null) {
                     // TODO: 2017/6/29  首先应该判断方框的大小是否小等于最小高度，如果是，则不向上滑动了
                     if (!mLayoutChangeListener.minHeight() && mTempPoint.equals(mLastPoint) && SystemClock.uptimeMillis() - mEventTime >= 500) {
-                        boolean up = upScroll();
-                        boolean canScroll = mLayoutChangeListener.onScroll(up);
-                        if (canScroll && mLayoutChangeListener != null) {
-                            Point point = mLayoutChangeListener.reLayoutBottom(0, up ? -30 : 30);
-                            int transitionY = (int) (getTranslationY() + point.y);
-                            setTranslationY(transitionY);
+                        int direction = scrollDirection();
+                        if (direction != DIRECTION_INVALID) {
+                            boolean canScroll = mLayoutChangeListener.onScroll(direction == DIRECTION_UP);
+                            if (canScroll && mLayoutChangeListener != null) {
+                                Point point = mLayoutChangeListener.reLayoutBottom(0, direction == DIRECTION_UP ? -30 : 30);
+                                int transitionY = (int) (getTranslationY() + point.y);
+                                setTranslationY(transitionY);
+                            }
                         }
                     }
                 }
@@ -77,10 +78,9 @@ public class CircleBottom extends CircleView {
                 translate = true;
 
                 int times = ((int) Math.ceil((tempX - mDownX - blockWidth / 3) / blockWidth));
-                int tempTimes=times;
-                times-=mLastTimes;
+                int tempTimes = times;
+                times -= mLastTimes;
                 int deltaX = (int) (times * blockWidth);
-                Log.i(TAG, times + ",大小:" + deltaX);
                 int deltaY = tempY - mLastMotionY;
                 if (mLayoutChangeListener != null) {
                     Point point = mLayoutChangeListener.reLayoutBottom(deltaX, deltaY);
@@ -89,12 +89,12 @@ public class CircleBottom extends CircleView {
                     setTranslationX(transitionX);
                     setTranslationY(transitionY);
                 }
-                mLastTimes=tempTimes;
+                mLastTimes = tempTimes;
                 break;
             case MotionEvent.ACTION_UP:
                 removeCallbacks(scrollRunnable);
                 mLayoutChangeListener.disallowInterceptTouchEvent(false);
-                mLastTimes=0;
+                mLastTimes = 0;
                 break;
         }
         mLastMotionX = tempX;

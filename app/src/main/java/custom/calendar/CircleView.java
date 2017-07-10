@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewConfiguration;
 
@@ -21,6 +20,7 @@ import util.DimensionUtil;
 
 public class CircleView extends View {
     private final String TAG = CircleView.class.getSimpleName();
+    int DIRECTION_UP=0,DIRECTION_DOWN=1, DIRECTION_INVALID =-1;
     boolean translate = false;
     float radius, circleStrokeWidth, padding, blockWidth, blockHeight;
     Paint innerCirclePaint, circlePaint;
@@ -65,21 +65,24 @@ public class CircleView extends View {
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
-    public boolean upScroll() {
+    /**
+     * 滑动方向
+     * @return
+     */
+    public int scrollDirection() {
         int[] locations = new int[2];
         getLocationOnScreen(locations);
-        return locations[1] <= DimensionUtil.screenHeight(getContext()) / 2;
+        if(locations[1]<=2*DimensionUtil.screenHeight(getContext())/9)
+            return DIRECTION_UP;
+        else if(locations[1]>=6*DimensionUtil.screenHeight(getContext())/9)
+            return DIRECTION_DOWN;
+        return DIRECTION_INVALID;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawCircle(getWidth() / 2, getHeight() / 2, radius, innerCirclePaint);
         canvas.drawCircle(getWidth() / 2, getHeight() / 2, radius, circlePaint);
-    }
-
-    protected void reLayout(int deltaX, int deltaY) {
-        layout(getLeft() + deltaX, getTop() + deltaY, getRight() + deltaX, getBottom() + deltaY);
-        invalidate();
     }
 
     public void reLayout(int left, int top, int right, int bottom) {
@@ -104,7 +107,6 @@ public class CircleView extends View {
     public void reLayout(View view, int marginLeft, int marginTop) {
         this.marginLeft = marginLeft;
         blockWidth = view.getRight() - view.getLeft();
-        Log.i(TAG, blockWidth + "");
         blockHeight = view.getBottom() - view.getTop();
         reLayout(view.getLeft(), view.getTop() + marginTop, view.getRight(), view.getBottom() + marginTop);
     }

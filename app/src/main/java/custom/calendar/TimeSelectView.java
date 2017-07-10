@@ -5,7 +5,6 @@ import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
@@ -54,11 +53,13 @@ public class TimeSelectView extends RelativeLayout implements CircleView.LayoutC
 
     }
 
+    public void removeView(){
+        removeAllViews();
+        isViewAdd=false;
+    }
     public void drawSelectArea(final int x, int y, final int width, final int height, final int marginLeft, final int marginTop) {
         if (isViewAdd) {
-            removeView(rectView);
-            removeView(topCircle);
-            removeView(bottomCircle);
+            removeAllViews();
         } else {
             Log.i(TAG, "开始绘制啦:" + String.format("%d,%d,%d,%d", x, y, width, height));
             //如果起始点小于marginTop,则加上一半的高度;如果此时还小于，则加上一个高度
@@ -88,43 +89,6 @@ public class TimeSelectView extends RelativeLayout implements CircleView.LayoutC
                 public boolean onPreDraw() {
                     bottomCircle.getViewTreeObserver().removeOnPreDrawListener(this);
                     bottomCircle.reLayout(x, finalY, width, height, marginLeft, marginTop);
-                    return false;
-                }
-            });
-            addView(rectView);
-            addView(topCircle);
-            addView(bottomCircle);
-        }
-        isViewAdd = !isViewAdd;
-    }
-
-    public void drawSelectArea(final View view, final int marginLeft, final int marginTop) {
-        if (isViewAdd) {
-            removeView(rectView);
-            removeView(topCircle);
-            removeView(bottomCircle);
-        } else {
-            rectView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    rectView.getViewTreeObserver().removeOnPreDrawListener(this);
-                    rectView.reLayout(view, marginLeft, marginTop);
-                    return false;
-                }
-            });
-            topCircle.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    topCircle.getViewTreeObserver().removeOnPreDrawListener(this);
-                    topCircle.reLayout(view, marginLeft, marginTop);
-                    return false;
-                }
-            });
-            bottomCircle.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    bottomCircle.getViewTreeObserver().removeOnPreDrawListener(this);
-                    bottomCircle.reLayout(view, marginLeft, marginTop);
                     return false;
                 }
             });

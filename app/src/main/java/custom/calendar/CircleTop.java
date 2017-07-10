@@ -35,12 +35,14 @@ public class CircleTop extends CircleView {
                 if (mLayoutChangeListener != null) {
                     // TODO: 2017/6/29 //首先应该判断方框的大小是否小等于最小高度，如果是，则不向下滑动了
                     if (!mLayoutChangeListener.minHeight()&&mTempPoint.equals(mLastPoint) && SystemClock.uptimeMillis() - mEventTime >= 500) {
-                        boolean up = upScroll();
-                        boolean canScroll = mLayoutChangeListener.onScroll(up);
-                        if (canScroll && mLayoutChangeListener != null) {
-                            Point point = mLayoutChangeListener.reLayoutTop(0, up ? -30 : 30);
-                            int transitionY = (int) (getTranslationY() + point.y);
-                            setTranslationY(transitionY);
+                        int direction = scrollDirection();
+                        if (direction != DIRECTION_INVALID) {
+                            boolean canScroll = mLayoutChangeListener.onScroll(direction == DIRECTION_UP);
+                            if (canScroll && mLayoutChangeListener != null) {
+                                Point point = mLayoutChangeListener.reLayoutTop(0, direction == DIRECTION_UP ? -30 : 30);
+                                int transitionY = (int) (getTranslationY() + point.y);
+                                setTranslationY(transitionY);
+                            }
                         }
                     }
                 }
