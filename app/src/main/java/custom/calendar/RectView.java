@@ -82,7 +82,6 @@ public class RectView extends View {
         if (lastBottom + deltaY >= maxHeight + marginTop)
             deltaY = maxHeight + marginTop - lastBottom;
 
-        // TODO: 2017/7/4 处理只有当超过1/3时才显示第二个框
         if (getRight() + deltaX <= getLeft() + blockWidth)
             deltaX = (int) (getLeft() + blockWidth - getRight());
         int screenWidth = DimensionUtil.screenWidth(getContext());
@@ -113,18 +112,6 @@ public class RectView extends View {
 
     }
 
-    public void reLayout(View view, int marginLeft, int marginTop) {
-        this.marginLeft = marginLeft;
-        blockWidth = view.getRight() - view.getLeft();
-        minWidth = (int) (blockWidth / 3);
-        blockHeight = view.getBottom() - view.getTop();
-        maxWidth = (int) (7 * blockWidth);
-        maxHeight = (int) (24 * blockHeight);
-        minHeight = (int) (2 * blockHeight / 3);
-        this.marginTop = getResources().getDimensionPixelSize(R.dimen.time_height_half) + marginTop;
-        reLayout(marginLeft + view.getLeft(), view.getTop() + marginTop, marginLeft + view.getRight(), view.getBottom() + marginTop);
-    }
-
     public void reLayout(int x, int y, int width, int height, int marginLeft, int marginTop) {
         this.marginLeft = marginLeft;
         blockWidth = width;
@@ -141,7 +128,6 @@ public class RectView extends View {
         int count = (int) Math.ceil((right - left) / blockWidth);
         this.firstTop = top;
         this.lastBottom = bottom;
-        Log.i(TAG, "画:整体top:" + marginTop + ",这一列top:" + top);
         if (count > 1) {
             top = marginTop;
             bottom = maxHeight + marginTop;

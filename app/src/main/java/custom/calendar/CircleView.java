@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -20,16 +19,17 @@ import util.DimensionUtil;
 
 public class CircleView extends View {
     private final String TAG = CircleView.class.getSimpleName();
-    int DIRECTION_UP=0,DIRECTION_DOWN=1, DIRECTION_INVALID =-1;
+    int DIRECTION_UP = 0, DIRECTION_DOWN = 1, DIRECTION_LEFT = 2, DIRECTION_RIGHT = 3, DIRECTION_INVALID = -1;
     boolean translate = false;
     float radius, circleStrokeWidth, padding, blockWidth, blockHeight;
     Paint innerCirclePaint, circlePaint;
     int mLastMotionX, mLastMotionY;
     int mPointerId, mTouchSlop, marginTop, marginLeft;
-    LayoutChangeListener mLayoutChangeListener;
+    OnCircleTouchListener onCircleTouchListener;
     Runnable scrollRunnable;
-    long mEventTime;
+    long mEventTime,mLastScrollHorizontalTime;
     CustomPoint mLastPoint, mTempPoint;
+    public static int startIndex,endIndex;
 
     public CircleView(Context context) {
         this(context, null);
@@ -67,15 +67,28 @@ public class CircleView extends View {
 
     /**
      * 滑动方向
+     *
      * @return
      */
     public int scrollDirection() {
+        int verticalDenominator = 9;
+        int horizontalDenominator = 8;
+        int screenHeight = DimensionUtil.screenHeight(getContext());
+        int screenWidth = DimensionUtil.screenWidth(getContext());
+
         int[] locations = new int[2];
         getLocationOnScreen(locations);
-        if(locations[1]<=2*DimensionUtil.screenHeight(getContext())/9)
+        if (locations[1] <= 2 * screenHeight / verticalDenominator)
             return DIRECTION_UP;
-        else if(locations[1]>=6*DimensionUtil.screenHeight(getContext())/9)
+        else if (locations[1] >= (verticalDenominator - 1) * screenHeight / verticalDenominator)
             return DIRECTION_DOWN;
+        else if (locations[1] >= (verticalDenominator - 6) * screenHeight/verticalDenominator &&
+                locations[1] <= (verticalDenominator - 3) * screenHeight/verticalDenominator) {
+            if (locations[0] <= 2 * screenWidth / horizontalDenominator)
+                return DIRECTION_LEFT;
+            else if (locations[0] >= 7 * screenWidth / horizontalDenominator)
+                return DIRECTION_RIGHT;
+        }
         return DIRECTION_INVALID;
     }
 
@@ -88,27 +101,8 @@ public class CircleView extends View {
     public void reLayout(int left, int top, int right, int bottom) {
     }
 
-    public void setLayoutChangeListener(LayoutChangeListener mLayoutChangeListener) {
-        this.mLayoutChangeListener = mLayoutChangeListener;
-    }
-
-    interface LayoutChangeListener {
-        Point reLayoutTop(int deltaX, int deltaY);
-
-        Point reLayoutBottom(int deltaX, int deltaY);
-
-        void disallowInterceptTouchEvent(boolean disallow);
-
-        boolean onScroll(boolean up);
-
-        boolean minHeight();
-    }
-
-    public void reLayout(View view, int marginLeft, int marginTop) {
-        this.marginLeft = marginLeft;
-        blockWidth = view.getRight() - view.getLeft();
-        blockHeight = view.getBottom() - view.getTop();
-        reLayout(view.getLeft(), view.getTop() + marginTop, view.getRight(), view.getBottom() + marginTop);
+    public void setCircleTouchListener(OnCircleTouchListener onCircleTouchListener) {
+        this.onCircleTouchListener = onCircleTouchListener;
     }
 
     public void reLayout(int x, int y, int width, int height, int marginLeft, int marginTop) {

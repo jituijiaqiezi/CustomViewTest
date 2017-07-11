@@ -1,21 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginRight="1px"
-    android:layout_marginEnd="1px"
-    tools:context="custom.calendar.CalendarActivity">
+    android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+    <TextView
+        android:id="@+id/text_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"/>
+    <LinearLayout
+        android:id="@+id/ll_week"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <custom.calendar.TimeSelectView
-        android:id="@+id/time_select_view"
+        <TextView
+            style="@style/TimeTextViewFirst"
+            android:text="01点"
+            android:visibility="invisible" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:orientation="horizontal" />
+    </LinearLayout>
+
+    <custom.calendar.VerticalScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-</FrameLayout>
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1px"
+            android:layout_marginRight="1px">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <custom.calendar.TimeSelectView
+                android:id="@+id/time_select_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+    </custom.calendar.VerticalScrollView>
+</LinearLayout>

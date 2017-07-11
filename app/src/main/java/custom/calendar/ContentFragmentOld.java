@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -25,8 +26,9 @@ import util.StringUtils;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CalendarFragment extends Fragment implements TimeSelectView.OnCustomTouchEvent {
-    private static final String TAG = CalendarFragment.class.getSimpleName();
+public class ContentFragmentOld extends Fragment implements OnCustomTouchListener {
+    CalendarActivity calendarActivity;
+    private static final String TAG = ContentFragmentOld.class.getSimpleName();
     CalendarScrollView scrollView;
 
     LinearLayout llWeek;
@@ -43,7 +45,8 @@ public class CalendarFragment extends Fragment implements TimeSelectView.OnCusto
     int[] contentScreenLocations = new int[2];
     int[] contentParentLocations = new int[2];
 
-    public CalendarFragment() {
+    Button btnScrollUp,btnScrollDown;
+    public ContentFragmentOld() {
     }
 
     public void setViewPager(ViewPager viewPager) {
@@ -52,18 +55,20 @@ public class CalendarFragment extends Fragment implements TimeSelectView.OnCusto
 
     public void setTimeSelectView(TimeSelectView timeSelectView) {
         this.timeSelectView = timeSelectView;
-        this.timeSelectView.setOnCustomTouchEvent(this);
+        this.timeSelectView.setOnTouchListener(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        calendarActivity = (CalendarActivity) getActivity();
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
         init(view);
         return view;
     }
 
     private void init(final View view) {
+
         llWeek = (LinearLayout) view.findViewById(R.id.ll_week);
         scrollView = (CalendarScrollView) view.findViewById(R.id.scrollView);
         weeks = new ArrayList<String>() {{
@@ -78,7 +83,7 @@ public class CalendarFragment extends Fragment implements TimeSelectView.OnCusto
         recyclerViewWeek = (RecyclerView) view.findViewById(R.id.recyclerView_week);
         recyclerViewWeek.setLayoutManager(new GridLayoutManager(getContext(), 7));
         recyclerViewWeek.addItemDecoration(new WeekItemDecoration(getContext()));
-        recyclerViewWeek.setAdapter(new CalendarWeekAdapter(weeks));
+        recyclerViewWeek.setAdapter(new WeekAdapter(weeks));
 
         contents = new ArrayList<>();
         for (int i = 0; i < 24 * 7; i++) {
@@ -87,7 +92,7 @@ public class CalendarFragment extends Fragment implements TimeSelectView.OnCusto
 
         recyclerViewContent = (RecyclerView) view.findViewById(R.id.recyclerView_content);
         recyclerViewContent.setLayoutManager(new GridLayoutManager(getContext(), 7));
-        CalendarContentAdapter contentAdapter = new CalendarContentAdapter(contents);
+        ContentAdapter contentAdapter = new ContentAdapter(contents);
         contentAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -120,7 +125,7 @@ public class CalendarFragment extends Fragment implements TimeSelectView.OnCusto
         }
         recyclerViewTime = (RecyclerView) view.findViewById(R.id.recyclerView_time);
         recyclerViewTime.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewTime.setAdapter(new CalendarTimeAdapter(getContext(), times));
+        recyclerViewTime.setAdapter(new TimeAdapter(getContext(), times));
         recyclerViewTime.addItemDecoration(new TimeItemDecoration(getContext()));
 
         scrollView.setOnTouchListener(new View.OnTouchListener() {
@@ -130,6 +135,7 @@ public class CalendarFragment extends Fragment implements TimeSelectView.OnCusto
                 return false;
             }
         });
+
 
     }
 
@@ -141,12 +147,16 @@ public class CalendarFragment extends Fragment implements TimeSelectView.OnCusto
     }
 
     @Override
-    public boolean onScroll(boolean up) {
-        Log.i(TAG,"滑动方向:"+(up?"向上":"向下"));
-        scrollView.smoothScrollBy(0, up ? -30 : 30);
+    public boolean onScrollVertical(boolean up) {
+        Log.i(TAG, "滑动方向:" + (up ? "向上" : "向下"));
         boolean canScroll = scrollView.canScrollVertically(up ? -1 : 1);
-        Log.i(TAG,"是否可以滑动:"+canScroll);
+        scrollView.smoothScrollBy(0, up ? -30 : 30);
+        Log.i(TAG, "是否可以滑动:" + canScroll);
         return canScroll;
+    }
 
+    @Override
+    public boolean onScrollHorizontal(boolean left) {
+        return false;
     }
 }

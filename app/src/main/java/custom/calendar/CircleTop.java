@@ -32,14 +32,14 @@ public class CircleTop extends CircleView {
         scrollRunnable = new Runnable() {
             @Override
             public void run() {
-                if (mLayoutChangeListener != null) {
+                if (onCircleTouchListener != null) {
                     // TODO: 2017/6/29 //首先应该判断方框的大小是否小等于最小高度，如果是，则不向下滑动了
-                    if (!mLayoutChangeListener.minHeight()&&mTempPoint.equals(mLastPoint) && SystemClock.uptimeMillis() - mEventTime >= 500) {
+                    if (!onCircleTouchListener.minHeight()&&mTempPoint.equals(mLastPoint) && SystemClock.uptimeMillis() - mEventTime >= 500) {
                         int direction = scrollDirection();
                         if (direction != DIRECTION_INVALID) {
-                            boolean canScroll = mLayoutChangeListener.onScroll(direction == DIRECTION_UP);
-                            if (canScroll && mLayoutChangeListener != null) {
-                                Point point = mLayoutChangeListener.reLayoutTop(0, direction == DIRECTION_UP ? -30 : 30);
+                            boolean canScroll = onCircleTouchListener.onScrollVertical(direction == DIRECTION_UP);
+                            if (canScroll && onCircleTouchListener != null) {
+                                Point point = onCircleTouchListener.reLayoutTop(0, direction == DIRECTION_UP ? -30 : 30);
                                 int transitionY = (int) (getTranslationY() + point.y);
                                 setTranslationY(transitionY);
                             }
@@ -53,14 +53,14 @@ public class CircleTop extends CircleView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        mTempPoint = new CustomPoint(event.getRawX(), event.getRawY());
         int tempY = (int) event.getRawY();
+        mTempPoint = new CustomPoint(event.getRawX(), tempY);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mLastPoint = new CustomPoint(event.getRawX(), event.getRawY());
                 mEventTime = event.getDownTime();
                 post(scrollRunnable);
-                mLayoutChangeListener.disallowInterceptTouchEvent(true);
+                onCircleTouchListener.disallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (!mLastPoint.equals(mTempPoint)) {
@@ -71,15 +71,15 @@ public class CircleTop extends CircleView {
 
                 translate = true;
                 int deltaY = tempY - mLastMotionY;
-                if (mLayoutChangeListener != null) {
-                    Point point = mLayoutChangeListener.reLayoutTop(0, deltaY);
+                if (onCircleTouchListener != null) {
+                    Point point = onCircleTouchListener.reLayoutTop(0, deltaY);
                     int transitionY = (int) (getTranslationY() + point.y);
                     setTranslationY(transitionY);
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 removeCallbacks(scrollRunnable);
-                mLayoutChangeListener.disallowInterceptTouchEvent(false);
+                onCircleTouchListener.disallowInterceptTouchEvent(false);
                 break;
         }
         mLastMotionY = tempY;

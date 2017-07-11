@@ -6,9 +6,9 @@ import com.lcp.customviewtest.R;
 
 import java.util.List;
 
-class CalendarWeekAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+class WeekAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-        public CalendarWeekAdapter(List<String> data) {
+        public WeekAdapter(List<String> data) {
             super(R.layout.item_week, data);
         }
 

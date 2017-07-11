@@ -14,7 +14,7 @@ import com.lcp.customviewtest.R;
  * Created by linchenpeng on 2017/6/26.
  */
 
-public class TimeSelectView extends RelativeLayout implements CircleView.LayoutChangeListener {
+public class TimeSelectView extends RelativeLayout implements OnCircleTouchListener {
     private final static String TAG = TimeSelectView.class.getSimpleName();
     RectView rectView;
     CircleTop topCircle;
@@ -22,7 +22,7 @@ public class TimeSelectView extends RelativeLayout implements CircleView.LayoutC
 
     int contentPadding;
 
-    OnCustomTouchEvent onCustomTouchEvent;
+    OnCustomTouchListener onTouchListener;
     boolean isViewAdd = false;
 
     public TimeSelectView(Context context) {
@@ -38,8 +38,8 @@ public class TimeSelectView extends RelativeLayout implements CircleView.LayoutC
         init(context);
     }
 
-    public void setOnCustomTouchEvent(OnCustomTouchEvent onCustomTouchEvent) {
-        this.onCustomTouchEvent = onCustomTouchEvent;
+    public void setOnTouchListener(OnCustomTouchListener onTouchListener) {
+        this.onTouchListener = onTouchListener;
     }
 
     private void init(Context context) {
@@ -48,21 +48,27 @@ public class TimeSelectView extends RelativeLayout implements CircleView.LayoutC
         topCircle = new CircleTop(getContext());
         bottomCircle = new CircleBottom(getContext());
 
-        topCircle.setLayoutChangeListener(this);
-        bottomCircle.setLayoutChangeListener(this);
+        topCircle.setCircleTouchListener(this);
+        bottomCircle.setCircleTouchListener(this);
 
     }
 
-    public void removeView(){
+    public void removeView() {
         removeAllViews();
-        isViewAdd=false;
+        isViewAdd = false;
     }
+
     public void drawSelectArea(final int x, int y, final int width, final int height, final int marginLeft, final int marginTop) {
         if (isViewAdd) {
             removeAllViews();
         } else {
             Log.i(TAG, "开始绘制啦:" + String.format("%d,%d,%d,%d", x, y, width, height));
             //如果起始点小于marginTop,则加上一半的高度;如果此时还小于，则加上一个高度
+           /* if (y <= marginTop - height)
+                y += height;
+            else if (y <= marginTop - height / 2)
+                y += height / 2;*/
+
             if (y <= marginTop)
                 y += height / 2;
             if (y <= marginTop)
@@ -111,12 +117,17 @@ public class TimeSelectView extends RelativeLayout implements CircleView.LayoutC
 
     @Override
     public void disallowInterceptTouchEvent(boolean disallow) {
-        onCustomTouchEvent.disallowInterceptTouchEvent(disallow);
+        onTouchListener.disallowInterceptTouchEvent(disallow);
     }
 
     @Override
-    public boolean onScroll(boolean up) {
-        return onCustomTouchEvent.onScroll(up);
+    public boolean onScrollVertical(boolean up) {
+        return onTouchListener.onScrollVertical(up);
+    }
+
+    @Override
+    public boolean onScrollHorizontal(boolean left) {
+        return onTouchListener.onScrollHorizontal(left);
     }
 
     @Override
@@ -124,9 +135,4 @@ public class TimeSelectView extends RelativeLayout implements CircleView.LayoutC
         return rectView.getHeight() <= rectView.getMinHeight();
     }
 
-    interface OnCustomTouchEvent {
-        void disallowInterceptTouchEvent(boolean disallow);
-
-        boolean onScroll(boolean up);
-    }
 }

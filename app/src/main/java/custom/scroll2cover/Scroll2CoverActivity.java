@@ -29,7 +29,7 @@ public class Scroll2CoverActivity extends AppCompatActivity {
     private void init() {
         DISPLAYW = getResources().getDisplayMetrics().widthPixels;
         mScrollView = (MyScrollView) findViewById(R.id.scroll);
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager_content);
 
         mViewPager.setLayoutParams(new RelativeLayout.LayoutParams(DISPLAYW, DISPLAYW));
         mScrollView.setListener(new OnScrolledListener() {

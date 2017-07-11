@@ -31,7 +31,7 @@ public class ViewPagerTransformerActivity extends AppCompatActivity {
             imageView.setImageResource(imgId);
             mImageViews.add(imageView);
         }
-        mViewPager=(ViewPager)findViewById(R.id.viewpager);
+        mViewPager=(ViewPager)findViewById(R.id.viewpager_content);
         mViewPager.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {

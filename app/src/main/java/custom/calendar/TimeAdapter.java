@@ -9,10 +9,10 @@ import com.lcp.customviewtest.R;
 
 import java.util.List;
 
-class CalendarTimeAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+class TimeAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
 
-        public CalendarTimeAdapter(Context context, @Nullable List<String> data) {
+        public TimeAdapter(Context context, @Nullable List<String> data) {
             super(R.layout.item_time, data);
 
         }
