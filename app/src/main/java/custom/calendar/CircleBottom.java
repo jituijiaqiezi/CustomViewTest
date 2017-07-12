@@ -82,6 +82,7 @@ public class CircleBottom extends CircleView {
                 onCircleTouchListener.disallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_MOVE:
+                // TODO: 2017/7/12 要处理滑到最右边时整个填满的问题
                 if (!mLastPoint.equals(mTempPoint)) {
                     //不相等说明滑动了，那就重新计算时间
                     mEventTime = event.getEventTime();
