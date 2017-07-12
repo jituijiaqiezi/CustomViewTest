@@ -1,4 +1,4 @@
-package custom.calendar;
+package custom.calendar0712;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.lcp.customviewtest.R;
+
+import util.DimensionUtil;
 
 /**
  * Created by linchenpeng on 2017/6/26.
@@ -38,7 +40,6 @@ public class RectView extends View {
 
     private void init() {
         marginTop = getResources().getDimensionPixelSize(R.dimen.time_height_half);
-        blockHeight=getResources().getDimensionPixelSize(R.dimen.content_height);
         strokeWidth = 2;
         innerRectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         innerRectPaint.setColor(getResources().getColor(R.color.main_blue_light));
@@ -54,7 +55,7 @@ public class RectView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         Log.i(TAG, "onMeasure");
         int measureWidth = (int) (7 * blockWidth);
-        int measureHeight = (int) (24 * blockHeight+2*marginTop);
+        int measureHeight = (int) (24 * blockHeight);
         setMeasuredDimension(measureWidth, measureHeight);
     }
 
@@ -83,6 +84,9 @@ public class RectView extends View {
 
         if (getRight() + deltaX <= getLeft() + blockWidth)
             deltaX = (int) (getLeft() + blockWidth - getRight());
+        int screenWidth = DimensionUtil.screenWidth(getContext());
+        /*if (getRight() + deltaX >= screenWidth)
+            deltaX = screenWidth - getRight();*/
 
         reLayout(getLeft(), firstTop, getRight() + deltaX, lastBottom + deltaY);
         return new Point(deltaX, deltaY);
@@ -108,16 +112,16 @@ public class RectView extends View {
 
     }
 
-    public void reLayout(View view, int marginLeft) {
-        Log.i(TAG,"reLayout");
+    public void reLayout(int x, int y, int width, int height, int marginLeft, int marginTop) {
         this.marginLeft = marginLeft;
-        blockWidth = view.getWidth();
+        blockWidth = width;
         minWidth = (int) (blockWidth / 3);
-        blockHeight = view.getHeight();
+        blockHeight = height;
         maxWidth = (int) (7 * blockWidth);
         maxHeight = (int) (24 * blockHeight);
         minHeight = (int) (2 * blockHeight / 3);
-        reLayout(marginLeft+view.getLeft(), view.getTop(), marginLeft+view.getRight(), view.getBottom());
+        this.marginTop = getResources().getDimensionPixelSize(R.dimen.time_height_half) + marginTop;
+        reLayout(x, y,  x + width,  y + height);
     }
 
     private void reLayout(int left, int top, int right, int bottom) {

@@ -2,9 +2,13 @@ package custom.calendar;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,25 +23,54 @@ import util.StringUtils;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContentFragment extends Fragment  {
+public class ContentFragment extends Fragment implements OnCustomTouchListener {
     CalendarActivity calendarActivity;
     private static final String TAG = ContentFragment.class.getSimpleName();
 
+    ViewPager viewPager;
+    CalendarScrollView scrollView;
     RecyclerView recyclerViewContent;
     List<Integer> contents;
     List<String> times;
     RecyclerView recyclerViewTime;
 
     TimeSelectView timeSelectView;
-    int[] contentScreenLocations = new int[2];
-    int[] contentParentLocations = new int[2];
+    int index;
 
 
     public ContentFragment() {
     }
 
-    public void setTimeSelectView(TimeSelectView timeSelectView) {
-        this.timeSelectView = timeSelectView;
+    public static ContentFragment newInstance(int index) {
+        ContentFragment contentFragment = new ContentFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("index", index);
+        contentFragment.setArguments(bundle);
+        return contentFragment;
+    }
+
+    public void setViewPager(ViewPager viewPager) {
+        this.viewPager = viewPager;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null)
+            index = getArguments().getInt("index", -1);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt("index", index);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null)
+            index = savedInstanceState.getInt("index", -1);
+        super.onViewStateRestored(savedInstanceState);
     }
 
     @Override
@@ -51,6 +84,16 @@ public class ContentFragment extends Fragment  {
 
     private void init(final View view) {
 
+        scrollView = (CalendarScrollView) view.findViewById(R.id.scrollView);
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                timeSelectView.removeView();
+                return false;
+            }
+        });
+        timeSelectView = (TimeSelectView) view.findViewById(R.id.time_select_view);
+        timeSelectView.setOnCustomTouchListener(this);
         contents = new ArrayList<>();
         for (int i = 0; i < 24 * 7; i++) {
             contents.add(i);
@@ -62,22 +105,14 @@ public class ContentFragment extends Fragment  {
         contentAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                int[] locations = new int[2];
-                view.getLocationOnScreen(locations);
                 if (timeSelectView != null) {
-                    timeSelectView.drawSelectArea(locations[0], locations[1] - contentScreenLocations[1], view.getWidth(), view.getHeight(), recyclerViewTime.getWidth(), 0);
+                    //timeSelectView.drawSelectArea(index,locations[0], locations[1] - contentScreenLocations[1], view.getWidth(), view.getHeight(), recyclerViewTime.getWidth(), 0);
+                    timeSelectView.drawSelectArea(index, view, recyclerViewTime.getWidth());
                 }
             }
         });
         recyclerViewContent.setAdapter(contentAdapter);
-        recyclerViewContent.post(new Runnable() {
-            @Override
-            public void run() {
-                recyclerViewContent.getLocationOnScreen(contentScreenLocations);
-                contentParentLocations[0] = (int) recyclerViewContent.getX();
-                contentParentLocations[1] = (int) recyclerViewContent.getY();
-            }
-        });
+        //recyclerViewContent.addItemDecoration(new ContentItemDecoration(getContext()));
 
         times = new ArrayList<>();
         for (int i = 0; i < 25; i++) {
@@ -87,29 +122,39 @@ public class ContentFragment extends Fragment  {
         recyclerViewTime.setLayoutManager(new CustomLinearLayoutManager(getContext()));
         recyclerViewTime.setAdapter(new TimeAdapter(getContext(), times));
         recyclerViewTime.addItemDecoration(new TimeItemDecoration(getContext()));
-        //syncScroll(recyclerViewTime,recyclerViewContent);
+        recyclerViewTime.setNestedScrollingEnabled(false);
+        recyclerViewContent.setNestedScrollingEnabled(false);
 
     }
 
-    private void syncScroll(final RecyclerView leftList, final RecyclerView rightList) {
-        leftList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (recyclerView.getScrollState() != RecyclerView.SCROLL_STATE_IDLE) {
-                    // note: scrollBy() not trigger OnScrollListener
-                    // This is a known issue. It is caused by the fact that RecyclerView does not know how LayoutManager will handle the scroll or if it will handle it at all.
-                    rightList.scrollBy(dx, dy);
-                }
-            }
-        });
+    public RecyclerView getRecyclerViewContent() {
+        return recyclerViewContent;
+    }
 
-        rightList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (recyclerView.getScrollState() != RecyclerView.SCROLL_STATE_IDLE) {
-                    leftList.scrollBy(dx, dy);
-                }
-            }
-        });
+
+    @Override
+    public void disallowInterceptTouchEvent(boolean disallow) {
+        viewPager.requestDisallowInterceptTouchEvent(disallow);
+        scrollView.requestDisallowInterceptTouchEvent(disallow);
+    }
+
+    @Override
+    public boolean onScrollVertical(boolean up) {
+        Log.i(TAG, "滑动方向:" + (up ? "向上" : "向下"));
+        boolean canScroll = scrollView.canScrollVertically(up ? -1 : 1);
+        scrollView.smoothScrollBy(0, up ? -30 : 30);
+        Log.i(TAG, "是否可以滑动:" + canScroll);
+        return canScroll;
+    }
+
+    @Override
+    public boolean onScrollHorizontal(boolean left) {
+        int index = viewPager.getCurrentItem();
+        if (left && index == 0 || !left && index == viewPager.getAdapter().getCount() - 1)
+            return false;
+        else {
+            viewPager.setCurrentItem(left ? --index : ++index);
+            return true;
+        }
     }
 }

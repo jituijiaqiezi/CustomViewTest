@@ -1,4 +1,4 @@
-package custom.calendar;
+package custom.calendar0712;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -27,8 +27,9 @@ public class CircleView extends View {
     int mPointerId, mTouchSlop, marginTop, marginLeft;
     OnCircleTouchListener onCircleTouchListener;
     Runnable scrollRunnable;
-    long mEventTime, mLastScrollHorizontalTime;
+    long mEventTime,mLastScrollHorizontalTime;
     CustomPoint mLastPoint, mTempPoint;
+    public static int startIndex,endIndex;
 
     public CircleView(Context context) {
         this(context, null);
@@ -81,8 +82,8 @@ public class CircleView extends View {
             return DIRECTION_UP;
         else if (locations[1] >= (verticalDenominator - 1) * screenHeight / verticalDenominator)
             return DIRECTION_DOWN;
-        else if (locations[1] >= (verticalDenominator - 6) * screenHeight / verticalDenominator &&
-                locations[1] <= (verticalDenominator - 3) * screenHeight / verticalDenominator) {
+        else if (locations[1] >= (verticalDenominator - 6) * screenHeight/verticalDenominator &&
+                locations[1] <= (verticalDenominator - 3) * screenHeight/verticalDenominator) {
             if (locations[0] <= 2 * screenWidth / horizontalDenominator)
                 return DIRECTION_LEFT;
             else if (locations[0] >= 7 * screenWidth / horizontalDenominator)
@@ -104,10 +105,10 @@ public class CircleView extends View {
         this.onCircleTouchListener = onCircleTouchListener;
     }
 
-    public void reLayout(View view, int marginLeft) {
+    public void reLayout(int x, int y, int width, int height, int marginLeft, int marginTop) {
         this.marginLeft = marginLeft;
-        blockWidth = view.getWidth();
-        blockHeight = view.getHeight();
-        reLayout(marginLeft+view.getLeft(), view.getTop(), marginLeft+view.getRight(), view.getBottom());
+        blockWidth = width;
+        blockHeight = height;
+        reLayout(x, y, x + width, y + height);
     }
 }

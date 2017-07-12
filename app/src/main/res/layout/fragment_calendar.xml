@@ -7,6 +7,7 @@
     tools:context="custom.calendar.CalendarActivity">
 
     <custom.calendar.CalendarScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -28,15 +29,11 @@
                 android:layout_toEndOf="@+id/recyclerView_time"
                 android:layout_toRightOf="@+id/recyclerView_time"
                 android:paddingTop="@dimen/time_height_half" />
-
-            <View
+            <custom.calendar.TimeSelectView
+                android:id="@+id/time_select_view"
                 android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_alignLeft="@id/recyclerView_content"
-                android:layout_alignStart="@id/recyclerView_content"
-                android:layout_below="@id/recyclerView_content"
-                android:background="#7e8f9b"
-                android:layout_marginBottom="@dimen/time_height_half" />
+                android:layout_height="match_parent"/>
+
         </RelativeLayout>
     </custom.calendar.CalendarScrollView>
 </LinearLayout>

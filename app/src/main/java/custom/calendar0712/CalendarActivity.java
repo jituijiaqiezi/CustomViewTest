@@ -1,4 +1,4 @@
-package custom.calendar;
+package custom.calendar0712;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -54,13 +54,13 @@ public class CalendarActivity extends AppCompatActivity implements OnCustomTouch
         //scrollView = (VerticalScrollView) findViewById(R.id.scrollView);
         viewPagerContent = (ViewPager) findViewById(R.id.viewpager_content);
         timeSelectView = (TimeSelectView) findViewById(R.id.time_select_view);
-        timeSelectView.setOnCustomTouchListener(this);
-        adapter = new ContentFragmentAdapter(getSupportFragmentManager(),viewPagerContent, timeSelectView);
+        timeSelectView.setOnTouchListener(this);
+        adapter = new ContentFragmentAdapter(getSupportFragmentManager(), timeSelectView);
         viewPagerContent.setAdapter(adapter);
         viewPagerContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(final int position, float positionOffset, int positionOffsetPixels) {
-                //timeSelectView.scrollByViewPager(positionOffsetPixels,0);
+                timeSelectView.scrollByViewPager(positionOffsetPixels,0);
                 Log.i(TAG,"ViewPager滑动:"+position+"，"+positionOffset+","+positionOffsetPixels);
 
             }

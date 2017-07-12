@@ -1,15 +1,15 @@
-package custom.calendar;
+package custom.calendar0712;
 
 import android.content.Context;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 import com.lcp.customviewtest.R;
+
+import util.DimensionUtil;
 
 /**
  * Created by linchenpeng on 2017/6/26.
@@ -21,6 +21,7 @@ public class TimeSelectView extends RelativeLayout implements OnCircleTouchListe
     CircleTop topCircle;
     CircleBottom bottomCircle;
     int startIndex = -1;
+
     int contentPadding;
 
     OnCustomTouchListener onTouchListener;
@@ -39,7 +40,7 @@ public class TimeSelectView extends RelativeLayout implements OnCircleTouchListe
         init(context);
     }
 
-    public void setOnCustomTouchListener(OnCustomTouchListener onTouchListener) {
+    public void setOnTouchListener(OnCustomTouchListener onTouchListener) {
         this.onTouchListener = onTouchListener;
     }
 
@@ -57,20 +58,27 @@ public class TimeSelectView extends RelativeLayout implements OnCircleTouchListe
     public void removeView() {
         removeAllViews();
         isViewAdd = false;
+        scrollTo(0, 0);
     }
 
-    public void drawSelectArea(int startIndex, final View view, final int marginLeft){
-        Log.i(TAG,String.format("left:%d,top:%d,right:%d,bottom:%d,marginLeft:%d",view.getLeft(),view.getTop(),view.getRight(),view.getBottom(),marginLeft));
+    public void drawSelectArea(final int startIndex, final int x, int y, final int width, final int height, final int marginLeft, final int marginTop) {
         if (isViewAdd) {
             removeAllViews();
+            scrollTo(0, 0);
             this.startIndex = -1;
         } else {
             this.startIndex = startIndex;
+
+            if (y <= marginTop)
+                y += height / 2;
+            if (y <= marginTop)
+                y += height / 2;
+            final int finalY = y;
             rectView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
                     rectView.getViewTreeObserver().removeOnPreDrawListener(this);
-                    rectView.reLayout(view, marginLeft);
+                    rectView.reLayout(x, finalY, width, height, marginLeft, marginTop);
                     return false;
                 }
             });
@@ -78,7 +86,7 @@ public class TimeSelectView extends RelativeLayout implements OnCircleTouchListe
                 @Override
                 public boolean onPreDraw() {
                     topCircle.getViewTreeObserver().removeOnPreDrawListener(this);
-                    topCircle.reLayout(view, marginLeft);
+                    topCircle.reLayout(x, finalY, width, height, marginLeft, marginTop);
                     return false;
                 }
             });
@@ -86,12 +94,10 @@ public class TimeSelectView extends RelativeLayout implements OnCircleTouchListe
                 @Override
                 public boolean onPreDraw() {
                     bottomCircle.getViewTreeObserver().removeOnPreDrawListener(this);
-                    bottomCircle.reLayout(view, marginLeft);
+                    bottomCircle.reLayout(x, finalY, width, height, marginLeft, marginTop);
                     return false;
                 }
             });
-            /*RelativeLayout.LayoutParams params=new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
-            rectView.setLayoutParams(params);*/
             addView(rectView);
             addView(topCircle);
             addView(bottomCircle);
@@ -129,5 +135,18 @@ public class TimeSelectView extends RelativeLayout implements OnCircleTouchListe
         return rectView.getHeight() <= rectView.getMinHeight();
     }
 
+    public void scroll(int dx, int dy) {
+        if (isViewAdd) {
+            scrollBy(dx, dy);
+        } else {
+            scrollTo(0, 0);
+        }
+    }
 
+    public void scrollByViewPager(int dx, int position) {
+        if (isViewAdd) {
+            scrollTo(DimensionUtil.screenWidth(getContext()) * position + dx, 0);
+        } else
+            scrollTo(0, 0);
+    }
 }

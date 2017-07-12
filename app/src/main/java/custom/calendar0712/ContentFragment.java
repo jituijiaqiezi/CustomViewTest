@@ -1,7 +1,8 @@
-package custom.calendar;
+package custom.calendar0712;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,9 +20,9 @@ import util.StringUtils;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContentFragmentOld3 extends Fragment  {
+public class ContentFragment extends Fragment {
     CalendarActivity calendarActivity;
-    private static final String TAG = ContentFragmentOld3.class.getSimpleName();
+    private static final String TAG = ContentFragment.class.getSimpleName();
 
     RecyclerView recyclerViewContent;
     List<Integer> contents;
@@ -31,9 +32,18 @@ public class ContentFragmentOld3 extends Fragment  {
     TimeSelectView timeSelectView;
     int[] contentScreenLocations = new int[2];
     int[] contentParentLocations = new int[2];
+    int index;
 
 
-    public ContentFragmentOld3() {
+    public ContentFragment() {
+    }
+
+    public static ContentFragment newInstance(int index) {
+        ContentFragment contentFragment = new ContentFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("index", index);
+        contentFragment.setArguments(bundle);
+        return contentFragment;
     }
 
     public void setTimeSelectView(TimeSelectView timeSelectView) {
@@ -41,10 +51,30 @@ public class ContentFragmentOld3 extends Fragment  {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null)
+            index = getArguments().getInt("index", -1);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt("index", index);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null)
+            index = savedInstanceState.getInt("index", -1);
+        super.onViewStateRestored(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         calendarActivity = (CalendarActivity) getActivity();
-        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+        View view = inflater.inflate(R.layout.fragment_calendar_old, container, false);
         init(view);
         return view;
     }
@@ -65,11 +95,12 @@ public class ContentFragmentOld3 extends Fragment  {
                 int[] locations = new int[2];
                 view.getLocationOnScreen(locations);
                 if (timeSelectView != null) {
-                    timeSelectView.drawSelectArea(locations[0], locations[1] - contentScreenLocations[1], view.getWidth(), view.getHeight(), recyclerViewTime.getWidth(), 0);
+                    timeSelectView.drawSelectArea(index,locations[0], locations[1] - contentScreenLocations[1], view.getWidth(), view.getHeight(), recyclerViewTime.getWidth(), 0);
                 }
             }
         });
         recyclerViewContent.setAdapter(contentAdapter);
+        recyclerViewContent.addItemDecoration(new ContentItemDecoration(getContext()));
         recyclerViewContent.post(new Runnable() {
             @Override
             public void run() {
@@ -78,7 +109,6 @@ public class ContentFragmentOld3 extends Fragment  {
                 contentParentLocations[1] = (int) recyclerViewContent.getY();
             }
         });
-        //recyclerViewContent.setNestedScrollingEnabled(false);
 
         times = new ArrayList<>();
         for (int i = 0; i < 25; i++) {
@@ -88,7 +118,33 @@ public class ContentFragmentOld3 extends Fragment  {
         recyclerViewTime.setLayoutManager(new CustomLinearLayoutManager(getContext()));
         recyclerViewTime.setAdapter(new TimeAdapter(getContext(), times));
         recyclerViewTime.addItemDecoration(new TimeItemDecoration(getContext()));
-        //recyclerViewTime.setNestedScrollingEnabled(false);
+        syncScroll(recyclerViewTime, recyclerViewContent);
 
+    }
+
+    public RecyclerView getRecyclerViewContent() {
+        return recyclerViewContent;
+    }
+
+    private void syncScroll(final RecyclerView leftList, final RecyclerView rightList) {
+        leftList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (recyclerView.getScrollState() != RecyclerView.SCROLL_STATE_IDLE) {
+                    rightList.scrollBy(dx, dy);
+                    timeSelectView.scroll(dx, dy);
+                }
+            }
+        });
+
+        rightList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (recyclerView.getScrollState() != RecyclerView.SCROLL_STATE_IDLE) {
+                    leftList.scrollBy(dx, dy);
+                    timeSelectView.scroll(dx, dy);
+                }
+            }
+        });
     }
 }

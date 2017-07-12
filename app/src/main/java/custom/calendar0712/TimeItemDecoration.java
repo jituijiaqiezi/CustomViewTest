@@ -1,4 +1,4 @@
-package custom.calendar;
+package custom.calendar0712;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -23,9 +23,9 @@ class TimeItemDecoration extends RecyclerView.ItemDecoration {
             outRect.top =  topMargin;
         else
             outRect.top = 0;
-        /*if (position == 24)
+        if (position == 24)
             outRect.bottom =  bottomMargin;
         else
-            outRect.bottom = 0;*/
+            outRect.bottom = 0;
     }
 }
