@@ -104,10 +104,10 @@ public class CircleView extends View {
         this.onCircleTouchListener = onCircleTouchListener;
     }
 
-    public void reLayout(View view, int marginLeft) {
+    public void reLayout(View view,int marginLeft, int topOffset) {
         this.marginLeft = marginLeft;
         blockWidth = view.getWidth();
         blockHeight = view.getHeight();
-        reLayout(marginLeft+view.getLeft(), view.getTop(), marginLeft+view.getRight(), view.getBottom());
+        reLayout(marginLeft+view.getLeft(), view.getTop()+topOffset, marginLeft+view.getRight(), view.getBottom()+topOffset);
     }
 }

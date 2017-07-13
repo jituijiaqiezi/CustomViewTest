@@ -9,7 +9,7 @@ import android.graphics.Point;
 public interface OnCircleTouchListener extends OnCustomTouchListener {
     Point reLayoutTop(int deltaX, int deltaY);
 
-    Point reLayoutBottom(int deltaX, int deltaY);
+    Point reLayoutBottom(int deltaX, int deltaY,boolean negative);
 
     boolean minHeight();
 }

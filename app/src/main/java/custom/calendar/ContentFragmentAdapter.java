@@ -7,20 +7,17 @@ import android.support.v4.view.ViewPager;
 
 class ContentFragmentAdapter extends FragmentStatePagerAdapter {
 
-    TimeSelectView timeSelectView;
     ViewPager viewPager;
 
-    public ContentFragmentAdapter(FragmentManager fm,ViewPager viewPager,TimeSelectView timeSelectView) {
+    public ContentFragmentAdapter(FragmentManager fm,ViewPager viewPager) {
         super(fm);
         this.viewPager=viewPager;
-        this.timeSelectView=timeSelectView;
     }
 
     @Override
     public Fragment getItem(int position) {
         ContentFragment fragment = ContentFragment.newInstance(position);
         fragment.setViewPager(viewPager);
-        //fragment.setTimeSelectView(timeSelectView);
         return fragment;
     }
 

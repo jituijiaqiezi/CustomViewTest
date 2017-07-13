@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,10 +30,14 @@ public class ContentFragment extends Fragment implements OnCustomTouchListener {
 
     ViewPager viewPager;
     CalendarScrollView scrollView;
+
+    RecyclerView recyclerViewWeek;
+    List<String> weeks;
     RecyclerView recyclerViewContent;
     List<Integer> contents;
     List<String> times;
     RecyclerView recyclerViewTime;
+
 
     TimeSelectView timeSelectView;
     int index;
@@ -92,6 +97,20 @@ public class ContentFragment extends Fragment implements OnCustomTouchListener {
                 return false;
             }
         });
+        weeks = new ArrayList<String>() {{
+            add("");
+            add("周日");
+            add("周一");
+            add("周二");
+            add("周三");
+            add("周四");
+            add("周五");
+            add("周六");
+        }};
+        recyclerViewWeek = (RecyclerView) view.findViewById(R.id.recyclerView_week);
+        recyclerViewWeek.setLayoutManager(new GridLayoutManager(getContext(), 8));
+        recyclerViewWeek.setAdapter(new WeekAdapter(weeks));
+
         timeSelectView = (TimeSelectView) view.findViewById(R.id.time_select_view);
         timeSelectView.setOnCustomTouchListener(this);
         contents = new ArrayList<>();
@@ -106,8 +125,9 @@ public class ContentFragment extends Fragment implements OnCustomTouchListener {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (timeSelectView != null) {
+                    Log.i(TAG,"滑动距离:"+scrollView.scrollX());
                     //timeSelectView.drawSelectArea(index,locations[0], locations[1] - contentScreenLocations[1], view.getWidth(), view.getHeight(), recyclerViewTime.getWidth(), 0);
-                    timeSelectView.drawSelectArea(index, view, recyclerViewTime.getWidth());
+                    timeSelectView.drawSelectArea(index, view, recyclerViewTime.getWidth(),scrollView.scrollX());
                 }
             }
         });
@@ -125,10 +145,6 @@ public class ContentFragment extends Fragment implements OnCustomTouchListener {
         recyclerViewTime.setNestedScrollingEnabled(false);
         recyclerViewContent.setNestedScrollingEnabled(false);
 
-    }
-
-    public RecyclerView getRecyclerViewContent() {
-        return recyclerViewContent;
     }
 
 

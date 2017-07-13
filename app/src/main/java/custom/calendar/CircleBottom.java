@@ -46,7 +46,7 @@ public class CircleBottom extends CircleView {
                             if (direction == DIRECTION_UP || direction == DIRECTION_DOWN) {
                                 boolean canScroll = onCircleTouchListener.onScrollVertical(direction == DIRECTION_UP);
                                 if (canScroll) {
-                                    Point point = onCircleTouchListener.reLayoutBottom(0, direction == DIRECTION_UP ? -30 : 30);
+                                    Point point = onCircleTouchListener.reLayoutBottom(0, direction == DIRECTION_UP ? -30 : 30,false);
                                     int transitionY = (int) (getTranslationY() + point.y);
                                     setTranslationY(transitionY);
                                 }
@@ -94,9 +94,10 @@ public class CircleBottom extends CircleView {
                 int tempTimes = times;
                 times -= mLastTimes;
                 int deltaX = (int) (times * blockWidth);
+                boolean negative=tempX-mDownX<0;
                 int deltaY = tempY - mLastMotionY;
                 if (onCircleTouchListener != null) {
-                    Point point = onCircleTouchListener.reLayoutBottom(deltaX, deltaY);
+                    Point point = onCircleTouchListener.reLayoutBottom(deltaX, deltaY,negative);
                     int transitionX = (int) (getTranslationX() + point.x);
                     int transitionY = (int) (getTranslationY() + point.y);
                     setTranslationX(transitionX);

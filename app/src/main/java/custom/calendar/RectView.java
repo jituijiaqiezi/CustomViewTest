@@ -11,6 +11,8 @@ import android.view.View;
 
 import com.lcp.customviewtest.R;
 
+import util.DimensionUtil;
+
 /**
  * Created by linchenpeng on 2017/6/26.
  */
@@ -22,6 +24,7 @@ public class RectView extends View {
     int minWidth, minHeight, maxHeight, maxWidth, marginTop, marginLeft;
     Paint innerRectPaint, rectPaint;
     int firstTop, lastBottom;
+    int screenWidth;
 
     public RectView(Context context) {
         this(context, null);
@@ -37,8 +40,9 @@ public class RectView extends View {
     }
 
     private void init() {
+        screenWidth = DimensionUtil.screenWidth(getContext());
         marginTop = getResources().getDimensionPixelSize(R.dimen.time_height_half);
-        blockHeight=getResources().getDimensionPixelSize(R.dimen.content_height);
+        blockHeight = getResources().getDimensionPixelSize(R.dimen.content_height);
         strokeWidth = 2;
         innerRectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         innerRectPaint.setColor(getResources().getColor(R.color.main_blue_light));
@@ -52,9 +56,8 @@ public class RectView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        Log.i(TAG, "onMeasure");
         int measureWidth = (int) (7 * blockWidth);
-        int measureHeight = (int) (24 * blockHeight+2*marginTop);
+        int measureHeight = (int) (24 * blockHeight + 2 * marginTop);
         setMeasuredDimension(measureWidth, measureHeight);
     }
 
@@ -63,6 +66,7 @@ public class RectView extends View {
             deltaY = marginTop - firstTop;
         //只有当开始和结束时间在同一天时才需要处理这种情况
         int count = (int) Math.ceil(getWidth() / blockWidth);
+
         if (count <= 1 && firstTop + deltaY + minHeight >= lastBottom)
             deltaY = lastBottom - minHeight - firstTop;
 
@@ -70,9 +74,12 @@ public class RectView extends View {
         return new Point(deltaX, deltaY);
     }
 
-    public Point reLayoutBottom(int deltaX, int deltaY) {
+    public Point reLayoutBottom(int deltaX, int deltaY, boolean negative) {
         //只有当开始和结束时间在同一天时才需要处理这种情况
+        Log.i(TAG, "处理之前:" + deltaX + "," + deltaY);
         int count = (int) Math.ceil(getWidth() / blockWidth);
+        if (count <= 1 && negative)
+            deltaX = 0;
         if (count <= 1 && lastBottom + deltaY - minHeight <= firstTop)
             deltaY = firstTop - lastBottom + minHeight;
         else if (count >= 2 && lastBottom + deltaY <= marginTop) {
@@ -83,8 +90,11 @@ public class RectView extends View {
 
         if (getRight() + deltaX <= getLeft() + blockWidth)
             deltaX = (int) (getLeft() + blockWidth - getRight());
+        else if (getRight() + deltaX >= screenWidth)
+            deltaX = screenWidth - getRight();
 
         reLayout(getLeft(), firstTop, getRight() + deltaX, lastBottom + deltaY);
+        Log.i(TAG, "处理之后:" + deltaX + "," + deltaY);
         return new Point(deltaX, deltaY);
     }
 
@@ -108,8 +118,7 @@ public class RectView extends View {
 
     }
 
-    public void reLayout(View view, int marginLeft) {
-        Log.i(TAG,"reLayout");
+    public void reLayout(View view, int marginLeft,int topOffset) {
         this.marginLeft = marginLeft;
         blockWidth = view.getWidth();
         minWidth = (int) (blockWidth / 3);
@@ -117,7 +126,7 @@ public class RectView extends View {
         maxWidth = (int) (7 * blockWidth);
         maxHeight = (int) (24 * blockHeight);
         minHeight = (int) (2 * blockHeight / 3);
-        reLayout(marginLeft+view.getLeft(), view.getTop(), marginLeft+view.getRight(), view.getBottom());
+        reLayout(marginLeft + view.getLeft(), view.getTop()+topOffset, marginLeft + view.getRight(), view.getBottom()+topOffset);
     }
 
     private void reLayout(int left, int top, int right, int bottom) {

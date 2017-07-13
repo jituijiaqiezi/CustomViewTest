@@ -6,6 +6,12 @@
     android:orientation="vertical"
     tools:context="custom.calendar.CalendarActivity">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" />
+
     <custom.calendar.CalendarScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -15,24 +21,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingStart="5dp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView_content"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/recyclerView_time"
-                android:layout_toRightOf="@+id/recyclerView_time"
-                android:paddingTop="@dimen/time_height_half" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:paddingTop="@dimen/time_height_half" />
+            </LinearLayout>
+
             <custom.calendar.TimeSelectView
                 android:id="@+id/time_select_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
         </RelativeLayout>
     </custom.calendar.CalendarScrollView>
