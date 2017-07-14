@@ -30,7 +30,7 @@ public class DimensionUtil {
         return (int) (px / density + 0.5F);
     }
 
-    public static int getStatusBarHeight(Context context) {
+    public static int statusBarHeight(Context context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
@@ -38,7 +38,7 @@ public class DimensionUtil {
         }
         return result;
     }
-    public static int getStatusBarHeightDP(Context context) {
+    public static int statusBarHeightDP(Context context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
@@ -47,7 +47,7 @@ public class DimensionUtil {
         return px2dip(context, result);
     }
 
-    public static int getActionBarSize(Context context) {
+    public static int actionBarSize(Context context) {
         TypedValue tv = new TypedValue();
         int actionBarHeight = 0;
         if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
@@ -56,7 +56,7 @@ public class DimensionUtil {
         return actionBarHeight;
     }
 
-    public static int getActionBarSizeDP(Context context) {
+    public static int actionBarSizeDP(Context context) {
         TypedValue tv = new TypedValue();
         int actionBarHeight = 0;
         if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {

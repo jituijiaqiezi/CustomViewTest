@@ -2,7 +2,6 @@ package custom.calendar;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.widget.ScrollView;
@@ -49,10 +48,10 @@ public class CalendarScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        if (t + getHeight() >= computeVerticalScrollRange()) {
+        /*if (t + getHeight() >= computeVerticalScrollRange()) {
             Log.i(TAG, "到底了");
         } else {
             Log.i(TAG, "没有到底");
-        }
+        }*/
     }
 }

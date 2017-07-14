@@ -9,7 +9,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -91,13 +90,13 @@ public class ContentFragment extends Fragment implements OnCustomTouchListener {
     private void init(final View view) {
 
         scrollView = (CalendarScrollView) view.findViewById(R.id.scrollView);
-        scrollView.setOnTouchListener(new View.OnTouchListener() {
+        /*scrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 timeSelectView.removeView();
                 return false;
             }
-        });
+        });*/
         weeks = new ArrayList<String>() {{
             add("");
             add("周日");

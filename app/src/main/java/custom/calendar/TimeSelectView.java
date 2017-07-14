@@ -17,10 +17,10 @@ import com.lcp.customviewtest.R;
 public class TimeSelectView extends RelativeLayout implements OnCircleTouchListener {
     private final static String TAG = TimeSelectView.class.getSimpleName();
     RectView rectView;
-    CircleTop topCircle;
-    CircleBottom bottomCircle;
-    TimeView topTimeView;
-    TimeView bottomTimeView;
+    CircleTop circleTop;
+    CircleBottom circleBottom;
+    TimeView timeTop;
+    TimeView timeBottom;
     public static int startIndex = -1;
     public static int endIndex=-1;
     public static int parentMargin;
@@ -49,13 +49,13 @@ public class TimeSelectView extends RelativeLayout implements OnCircleTouchListe
     private void init(Context context) {
         contentPadding = getResources().getDimensionPixelSize(R.dimen.time_height_half);
         rectView = new RectView(getContext());
-        topCircle = new CircleTop(getContext());
-        bottomCircle = new CircleBottom(getContext());
-        topTimeView =new TimeView(getContext());
-        bottomTimeView=new TimeView(getContext());
+        circleTop = new CircleTop(getContext());
+        circleBottom = new CircleBottom(getContext());
+        timeTop =new TimeView(getContext());
+        timeBottom =new TimeView(getContext());
 
-        topCircle.setCircleTouchListener(this);
-        bottomCircle.setCircleTouchListener(this);
+        circleTop.setCircleTouchListener(this);
+        circleBottom.setCircleTouchListener(this);
 
     }
 
@@ -90,45 +90,45 @@ public class TimeSelectView extends RelativeLayout implements OnCircleTouchListe
                     return false;
                 }
             });
-            topCircle.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            circleTop.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
-                    topCircle.getViewTreeObserver().removeOnPreDrawListener(this);
-                    topCircle.reLayout(view, marginLeft,offsetTop);
+                    circleTop.getViewTreeObserver().removeOnPreDrawListener(this);
+                    circleTop.reLayout(view, marginLeft,offsetTop);
                     return false;
                 }
             });
-            bottomCircle.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            circleBottom.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
-                    bottomCircle.getViewTreeObserver().removeOnPreDrawListener(this);
-                    bottomCircle.reLayout(view, marginLeft,offsetTop);
+                    circleBottom.getViewTreeObserver().removeOnPreDrawListener(this);
+                    circleBottom.reLayout(view, marginLeft,offsetTop);
                     return false;
                 }
             });
-            topTimeView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            timeTop.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
-                    topTimeView.getViewTreeObserver().removeOnPreDrawListener(this);
-                    topTimeView.reLayout(view,offsetTop);
+                    timeTop.getViewTreeObserver().removeOnPreDrawListener(this);
+                    timeTop.reLayout(view,offsetTop);
                     return false;
                 }
             });
-            bottomTimeView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            timeBottom.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
-                    bottomTimeView.getViewTreeObserver().removeOnPreDrawListener(this);
-                    bottomTimeView.reLayout(view,offsetTop+view.getHeight());
+                    timeBottom.getViewTreeObserver().removeOnPreDrawListener(this);
+                    timeBottom.reLayout(view,offsetTop+view.getHeight());
                     return false;
                 }
             });
-            topTimeView.setVisibility(View.VISIBLE);
-            bottomTimeView.setVisibility(View.INVISIBLE);
+            timeTop.setVisibility(View.VISIBLE);
+            timeBottom.setVisibility(View.INVISIBLE);
             addView(rectView);
-            addView(topCircle);
-            addView(bottomCircle);
-            addView(topTimeView);
-            addView(bottomTimeView);
+            addView(circleTop);
+            addView(circleBottom);
+            addView(timeTop);
+            addView(timeBottom);
         }
         isViewAdd = !isViewAdd;
     }
@@ -136,18 +136,18 @@ public class TimeSelectView extends RelativeLayout implements OnCircleTouchListe
     @Override
     public Point reLayoutTop(int deltaX, int deltaY) {
         Point point=rectView.reLayoutTop(deltaX, deltaY);
-        topTimeView.setVisibility(View.VISIBLE);
-        bottomTimeView.setVisibility(View.INVISIBLE);
-        topTimeView.reLayout(point.y);
+        timeTop.setVisibility(View.VISIBLE);
+        timeBottom.setVisibility(View.INVISIBLE);
+        timeTop.reLayout(point.y);
         return point;
     }
 
     @Override
     public Point reLayoutBottom(int deltaX, int deltaY, boolean negative) {
         Point point=rectView.reLayoutBottom(deltaX, deltaY, negative);
-        topTimeView.setVisibility(View.INVISIBLE);
-        bottomTimeView.setVisibility(View.VISIBLE);
-        bottomTimeView.reLayout(point.y);
+        timeTop.setVisibility(View.INVISIBLE);
+        timeBottom.setVisibility(View.VISIBLE);
+        timeBottom.reLayout(point.y);
         return point;
     }
 

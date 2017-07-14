@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 /**
@@ -39,12 +40,13 @@ public class CircleBottom extends CircleView {
                 if (onCircleTouchListener != null) {
                     long nowTime = SystemClock.uptimeMillis();
 
-                    if (!onCircleTouchListener.minHeight() && mTempPoint.equals(mLastPoint) && nowTime - mEventTime >= 500) {
+                    if (!onCircleTouchListener.minHeight() && mTempPoint.equals(mLastPoint) && nowTime - mEventTime >= 1000) {
                         int direction = scrollDirection();
                         if (direction != DIRECTION_INVALID) {
                             //上下滑动
                             if (direction == DIRECTION_UP || direction == DIRECTION_DOWN) {
                                 boolean canScroll = onCircleTouchListener.onScrollVertical(direction == DIRECTION_UP);
+                                Log.i(TAG, "是否可以滑动:" + canScroll);
                                 if (canScroll) {
                                     Point point = onCircleTouchListener.reLayoutBottom(0, direction == DIRECTION_UP ? -30 : 30, false);
                                     int transitionY = (int) (getTranslationY() + point.y);
@@ -54,11 +56,11 @@ public class CircleBottom extends CircleView {
                                 //左右滑动
                                 //和上次左右滑动的时间超过2s则可以继续滑动
                                 if (nowTime - mLastScrollHorizontalTime >= 2000) {
-                                    mLastScrollHorizontalTime = nowTime;
                                     if (direction == DIRECTION_LEFT && TimeSelectView.sameIndex()) {
                                         //开始和结束时间在同一个页面，则不左滑
                                         return;
                                     }
+                                    mLastScrollHorizontalTime = nowTime;
                                     boolean canScroll = onCircleTouchListener.onScrollHorizontal(direction == DIRECTION_LEFT);
                                     if (canScroll) {
                                         if (direction == DIRECTION_LEFT)
@@ -106,7 +108,12 @@ public class CircleBottom extends CircleView {
                 int deltaX = (int) (times * blockWidth);
                 boolean negative = tempX - mDownX < 0;
                 int deltaY = tempY - mLastMotionY;
-                if (onCircleTouchListener != null) {
+                int locationY=locationOnScreenY();
+                if (locationY + deltaY < TimeSelectView.parentMargin)
+                    deltaY = TimeSelectView.parentMargin - locationY;
+                else if (locationY + deltaY > screenHeight - getHeight())
+                    deltaY = screenHeight - getHeight() - locationY;
+                if (onCircleTouchListener != null && (deltaX != 0 || deltaY != 0)) {
                     Point point = onCircleTouchListener.reLayoutBottom(deltaX, deltaY, negative);
                     int transitionX = (int) (getTranslationX() + point.x);
                     int transitionY = (int) (getTranslationY() + point.y);
@@ -128,9 +135,9 @@ public class CircleBottom extends CircleView {
 
     @Override
     public void reLayout(int left, int top, int right, int bottom) {
-        left = (int) (right - getMeasuredWidth() - padding);
-        top = bottom - getMeasuredHeight() / 2;
-        bottom = bottom + getMeasuredHeight() / 2;
+        left = right - width;
+        top = bottom - height / 2;
+        bottom = bottom + height / 2;
         if (translate) {
             int deltaX = (int) (left - getX());
             int deltaY = (int) (top - getY());

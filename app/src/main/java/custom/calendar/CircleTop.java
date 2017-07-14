@@ -34,14 +34,16 @@ public class CircleTop extends CircleView {
             public void run() {
                 if (onCircleTouchListener != null) {
                     // TODO: 2017/6/29 //首先应该判断方框的大小是否小等于最小高度，如果是，则不向下滑动了
-                    if (!onCircleTouchListener.minHeight()&&mTempPoint.equals(mLastPoint) && SystemClock.uptimeMillis() - mEventTime >= 500) {
+                    if (!onCircleTouchListener.minHeight() && mTempPoint.equals(mLastPoint) && SystemClock.uptimeMillis() - mEventTime >= 1000) {
                         int direction = scrollDirection();
                         if (direction != DIRECTION_INVALID) {
-                            boolean canScroll = onCircleTouchListener.onScrollVertical(direction == DIRECTION_UP);
-                            if (canScroll && onCircleTouchListener != null) {
-                                Point point = onCircleTouchListener.reLayoutTop(0, direction == DIRECTION_UP ? -30 : 30);
-                                int transitionY = (int) (getTranslationY() + point.y);
-                                setTranslationY(transitionY);
+                            if (direction == DIRECTION_UP || direction == DIRECTION_DOWN) {
+                                boolean canScroll = onCircleTouchListener.onScrollVertical(direction == DIRECTION_UP);
+                                if (canScroll && onCircleTouchListener != null) {
+                                    Point point = onCircleTouchListener.reLayoutTop(0, direction == DIRECTION_UP ? -30 : 30);
+                                    int transitionY = (int) (getTranslationY() + point.y);
+                                    setTranslationY(transitionY);
+                                }
                             }
                         }
                     }
@@ -71,7 +73,12 @@ public class CircleTop extends CircleView {
 
                 translate = true;
                 int deltaY = tempY - mLastMotionY;
-                if (onCircleTouchListener != null) {
+                int locationY = locationOnScreenY();
+                if (locationY + deltaY < TimeSelectView.parentMargin)
+                    deltaY = TimeSelectView.parentMargin - locationY;
+                else if (locationY + deltaY > screenHeight - getHeight())
+                    deltaY = screenHeight - getHeight() - locationY;
+                if (onCircleTouchListener != null && deltaY != 0) {
                     Point point = onCircleTouchListener.reLayoutTop(0, deltaY);
                     int transitionY = (int) (getTranslationY() + point.y);
                     setTranslationY(transitionY);
@@ -86,13 +93,11 @@ public class CircleTop extends CircleView {
         return true;
     }
 
-
     @Override
     public void reLayout(int left, int top, int right, int bottom) {
-        left += padding;
-        right = left + getMeasuredWidth();
-        bottom = top + getMeasuredHeight() / 2;
-        top = top - getMeasuredHeight() / 2;
+        right = left + width;
+        bottom = top + height / 2;
+        top = top - height / 2;
         if (translate) {
             int deltaX = (int) (left - getX());
             int deltaY = (int) (top - getY());

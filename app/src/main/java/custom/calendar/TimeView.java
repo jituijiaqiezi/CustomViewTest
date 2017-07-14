@@ -8,7 +8,6 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.lcp.customviewtest.R;
@@ -77,7 +76,6 @@ public class TimeView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawPath(path, paint);
         Paint.FontMetrics metrics = textPaint.getFontMetrics();
-        Log.i(TAG, getX() + "*" + getY() + ";top:" + getTop());
         int hour = (int) (getY() / blockHeight);
         int minute = (int) ((getY() % blockHeight) * (60.0 / blockHeight));
         if (minute < 30)
