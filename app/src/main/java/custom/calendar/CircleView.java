@@ -72,20 +72,18 @@ public class CircleView extends View {
     public int scrollDirection() {
         int verticalDenominator = 9;
         int horizontalDenominator = 8;
-        int screenHeight = DimensionUtil.screenHeight(getContext());
+        int contentHeight = DimensionUtil.screenHeight(getContext()) - TimeSelectView.parentMargin;
         int screenWidth = DimensionUtil.screenWidth(getContext());
 
-        int[] locations = new int[2];
-        getLocationOnScreen(locations);
-        if (locations[1] <= 2 * screenHeight / verticalDenominator)
+        if (getY() <= contentHeight / verticalDenominator)
             return DIRECTION_UP;
-        else if (locations[1] >= (verticalDenominator - 1) * screenHeight / verticalDenominator)
+        else if (getY() >= (verticalDenominator - 1) * contentHeight / verticalDenominator)
             return DIRECTION_DOWN;
-        else if (locations[1] >= (verticalDenominator - 6) * screenHeight / verticalDenominator &&
-                locations[1] <= (verticalDenominator - 3) * screenHeight / verticalDenominator) {
-            if (locations[0] <= 2 * screenWidth / horizontalDenominator)
+        else if (getY() >= (verticalDenominator - 6) * contentHeight / verticalDenominator &&
+                getY() <= (verticalDenominator - 3) * contentHeight / verticalDenominator) {
+            if (getX() <= 2 * screenWidth / horizontalDenominator)
                 return DIRECTION_LEFT;
-            else if (locations[0] >= 7 * screenWidth / horizontalDenominator)
+            else if (getX() >= (horizontalDenominator - 1) * screenWidth / horizontalDenominator)
                 return DIRECTION_RIGHT;
         }
         return DIRECTION_INVALID;
@@ -104,10 +102,10 @@ public class CircleView extends View {
         this.onCircleTouchListener = onCircleTouchListener;
     }
 
-    public void reLayout(View view,int marginLeft, int topOffset) {
+    public void reLayout(View view, int marginLeft, int topOffset) {
         this.marginLeft = marginLeft;
         blockWidth = view.getWidth();
         blockHeight = view.getHeight();
-        reLayout(marginLeft+view.getLeft(), view.getTop()+topOffset, marginLeft+view.getRight(), view.getBottom()+topOffset);
+        reLayout(marginLeft + view.getLeft(), view.getTop() + topOffset, marginLeft + view.getRight(), view.getBottom() + topOffset);
     }
 }

@@ -21,7 +21,9 @@ public class TimeSelectView extends RelativeLayout implements OnCircleTouchListe
     CircleBottom bottomCircle;
     TimeView topTimeView;
     TimeView bottomTimeView;
-    int startIndex = -1;
+    public static int startIndex = -1;
+    public static int endIndex=-1;
+    public static int parentMargin;
     int contentPadding;
 
     OnCustomTouchListener onTouchListener;
@@ -62,12 +64,15 @@ public class TimeSelectView extends RelativeLayout implements OnCircleTouchListe
         isViewAdd = false;
     }
 
-    public void drawSelectArea(int startIndex, final View view, final int marginLeft, int scrollOffset) {
+    public void drawSelectArea(int startIndex, final View view, final int marginLeft,int parentMargin, int scrollOffset) {
+        TimeSelectView.parentMargin =parentMargin;
         if (isViewAdd) {
             removeAllViews();
-            this.startIndex = -1;
+            TimeSelectView.startIndex = -1;
+            TimeSelectView.endIndex=-1;
         } else {
-            this.startIndex = startIndex;
+            TimeSelectView.startIndex = startIndex;
+            TimeSelectView.endIndex=startIndex;
             int topOffset = 0;
             int height = view.getHeight();
             if (view.getTop() + height / 3 < scrollOffset) {
@@ -166,5 +171,8 @@ public class TimeSelectView extends RelativeLayout implements OnCircleTouchListe
         return rectView.getHeight() <= rectView.getMinHeight();
     }
 
+    public static boolean sameIndex(){
+        return startIndex==endIndex;
+    }
 
 }

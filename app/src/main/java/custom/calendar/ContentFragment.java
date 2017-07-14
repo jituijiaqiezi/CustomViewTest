@@ -41,6 +41,7 @@ public class ContentFragment extends Fragment implements OnCustomTouchListener {
 
     TimeSelectView timeSelectView;
     int index;
+    int scrollViewMarginInScreen;
 
 
     public ContentFragment() {
@@ -125,14 +126,20 @@ public class ContentFragment extends Fragment implements OnCustomTouchListener {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (timeSelectView != null) {
-                    Log.i(TAG,"滑动距离:"+scrollView.scrollX());
-                    //timeSelectView.drawSelectArea(index,locations[0], locations[1] - contentScreenLocations[1], view.getWidth(), view.getHeight(), recyclerViewTime.getWidth(), 0);
-                    timeSelectView.drawSelectArea(index, view, recyclerViewTime.getWidth(),scrollView.scrollX());
+                    timeSelectView.drawSelectArea(index, view, recyclerViewTime.getWidth(), scrollViewMarginInScreen,scrollView.scrollX());
                 }
             }
         });
         recyclerViewContent.setAdapter(contentAdapter);
-        //recyclerViewContent.addItemDecoration(new ContentItemDecoration(getContext()));
+
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                int location[]=new int[2];
+                scrollView.getLocationOnScreen(location);
+                scrollViewMarginInScreen =location[1];
+            }
+        });
 
         times = new ArrayList<>();
         for (int i = 0; i < 25; i++) {
